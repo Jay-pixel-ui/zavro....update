@@ -5,6 +5,7 @@ import Lenis from "lenis";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Cursor from "@/components/Cursor";
+import SignalField from "@/components/SignalField";
 import Loader from "@/components/Loader";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
@@ -75,12 +76,13 @@ export default function Layout() {
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-black">Skip to content</a>
       <Loader />
       <Cursor />
+      <SignalField />
       <ScrollProgress />
       <Nav />
-      <main id="main" tabIndex={-1} className="outline-none">
+      <main id="main" tabIndex={-1} className="relative z-10 outline-none">
         <ErrorBoundary><Outlet /></ErrorBoundary>
       </main>
-      <Footer />
+      <div className="relative z-10"><Footer /></div>
       <Nova />
     </MotionConfig>
   );

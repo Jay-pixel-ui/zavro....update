@@ -10,6 +10,7 @@ import ProcessPath from "@/components/ProcessPath";
 import ContactBand from "@/components/ContactBand";
 import SampleTestimonials from "@/components/SampleTestimonials";
 import { publicProjects } from "@/data/projects";
+import { INTENTS } from "@/data/site";
 import { publishedInsights } from "@/data/insights";
 
 const PRINCIPLES = [
@@ -38,6 +39,25 @@ function ClientRail() {
   );
 }
 
+function IntentRail() {
+  return (
+    <section aria-label="Start from what you need" className="px-5 sm:px-8" data-testid="intent-rail">
+      <div className="mx-auto flex max-w-[1240px] flex-col gap-4 py-8 sm:flex-row sm:items-center sm:gap-8">
+        <p className="shrink-0 font-mono text-[12px] uppercase tracking-[0.16em] text-z-muted">Start from what you need</p>
+        <ul className="flex flex-wrap gap-2">
+          {INTENTS.map((i) => (
+            <li key={i.id}>
+              <Link to={`/services/${i.services[0]}`} className="inline-flex min-h-[40px] items-center rounded-full border border-white/10 px-3.5 text-[14px] text-z-body transition-colors duration-300 hover:border-z-gold/60 hover:text-white" data-testid={`home-intent-${i.id}`}>
+                {i.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const insights = publishedInsights().slice(0, 3);
   return (
@@ -49,6 +69,7 @@ export default function Home() {
         jsonLd={[ORG_LD, WEBSITE_LD]}
       />
       <Hero />
+      <IntentRail />
       <ClientRail />
       <SignalPath />
       <Marquee />

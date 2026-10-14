@@ -21,6 +21,12 @@ React CRA + react-router + framer-motion + Lenis + react-helmet-async; FastAPI `
 - Case-study pages /work/umi-spices, /work/feni-electrical, /work/sgsa-construction (context, delivered scope, approach, honest outcomes block, next case, CTA). Scope confirmed by owner; UMI Spices industry corrected to restaurant & catering after inspecting the live site. Owner's "growth within 2 weeks" claim NOT published (unmeasured, unapproved).
 - Two published Insights articles (author: Zavro Solutions team, 2026-10-14) with short-answer box, checklist, related services, BlogPosting JSON-LD. Sitemap now 25 URLs.
 
+## Implemented (2026-10-14, iteration 3 — polish & mobile repair)
+- P1 Mobile nav scroll fixed: `MobileMenu` (Nav.jsx) restructured to a flex column — fixed top bar (brand + always-visible close) + `flex-1 overflow-y-auto overscroll-contain` nav area on `100dvh`. Close stays visible, CTA reachable, background scroll locked + restored. Verified scrollable at 320/390/430px.
+- P2 Lightweight animated background: new `components/SignalField.jsx` (Canvas 2D, no new deps) — faint cyan/blue particles + connecting signal lines, rare gold node; `pointer-events:none`, fixed `z-0` behind content (main/footer set `relative z-10`); density/speed reduced on mobile; pauses on tab hidden; static single frame for reduced-motion; debounced resize; dpr capped at 1.5.
+- P3 Hero text reduced: tightened supporting paragraph to one line, kept two CTAs; moved "Start from what you need" intent chips out of the first viewport into a slim `IntentRail` band in Home (below hero). No service content deleted.
+- P4 Responsive QA: zero horizontal overflow confirmed at 320/390/430/768/1280. P5 loader, cursor, routes, SEO, branding preserved.
+
 ## Backlog
 - P0: owner PDPA contact + retention; legal review; set SHOW_DEMO_CONTENT=false + APP_ENV=production at launch; prerendering for static HTML.
 - P1: approved case-study detail pages; real testimonials; first Insights articles; GA4 + consent.

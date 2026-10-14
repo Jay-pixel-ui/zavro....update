@@ -63,19 +63,19 @@ function MobileMenu({ onClose }) {
     return () => { document.removeEventListener("keydown", key); window.__lenis?.start(); document.body.style.overflow = ""; };
   }, [onClose]);
   return (
-    <motion.div role="dialog" aria-modal="true" aria-label="Site menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[80] overflow-y-auto bg-z-bg/95 backdrop-blur-xl" data-testid="mobile-menu">
-      <div className="flex items-center justify-between px-5 py-4">
+    <motion.div role="dialog" aria-modal="true" aria-label="Site menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[80] flex h-screen flex-col bg-z-bg/95 backdrop-blur-xl [height:100dvh]" data-testid="mobile-menu">
+      <div className="flex shrink-0 items-center justify-between px-5 py-4">
         <Brand />
         <button ref={closeRef} onClick={onClose} className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white" aria-label="Close menu" data-testid="mobile-menu-close">
           <X className="h-5 w-5" />
         </button>
       </div>
-      <nav className="px-5 pb-10" aria-label="Mobile">
+      <nav className="flex-1 overflow-y-auto overscroll-contain px-5 pb-10 [-webkit-overflow-scrolling:touch]" aria-label="Mobile">
         {FAMILIES.map((f) => (
           <div key={f.id} className="border-t border-white/10 py-4">
             <p className="eyebrow mb-2">{f.label}</p>
             {servicesByFamily(f.id).map((s) => (
-              <Link key={s.slug} to={`/services/${s.slug}`} onClick={onClose} className="block py-2 text-[17px] text-z-body">{s.short}</Link>
+              <Link key={s.slug} to={`/services/${s.slug}`} onClick={onClose} className="block rounded-lg py-2 text-[17px] text-z-body hover:text-white">{s.short}</Link>
             ))}
           </div>
         ))}

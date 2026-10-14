@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { INTENTS, SITE } from "@/data/site";
+import { SITE } from "@/data/site";
 import { Headline, EASE } from "@/components/motion";
 import { Cta } from "@/components/Cta";
 import SignalMap from "@/components/SignalMap";
@@ -19,24 +18,12 @@ export default function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-z-cyan" aria-hidden="true" /> {SITE.reach}
           </motion.p>
           <Headline as="h1" onMount testid="hero-heading" lines={[["Growth isn't luck."], ["It's ", { g: "engineering." }]]} className="mt-7 font-display text-[clamp(2.5rem,7.2vw,5.9rem)] font-medium leading-[1.02]" />
-          <motion.p {...up(0.45)} className="mt-7 max-w-[560px] text-[17px] leading-relaxed text-z-body sm:text-lg">
-            Zavro Solutions is a Singapore-based digital growth and IT team. We connect your website, search visibility, marketing, software and AI automation so they work as one system — for SMEs and founders in Singapore and remotely worldwide.
+          <motion.p {...up(0.45)} className="mt-7 max-w-[520px] text-[17px] leading-relaxed text-z-body sm:text-lg">
+            A Singapore-based digital growth and IT team. We connect your website, search, marketing, software and AI automation into one system — for SMEs and founders, locally and worldwide.
           </motion.p>
           <motion.div {...up(0.6)} className="mt-9 flex flex-wrap gap-3">
             <Cta to="/contact" testid="hero-primary-cta" event="primary_cta_click">Discuss a project</Cta>
             <Cta to="/work" variant="ghost" testid="hero-secondary-cta">Explore our work</Cta>
-          </motion.div>
-          <motion.div {...up(0.8)} className="mt-10">
-            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-z-muted">Start from what you need</p>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {INTENTS.map((i) => (
-                <li key={i.id}>
-                  <Link to={`/services/${i.services[0]}`} className="inline-flex min-h-[40px] items-center rounded-full border border-white/10 px-3.5 text-[14px] text-z-body transition-colors duration-300 hover:border-z-gold/60 hover:text-white" data-testid={`hero-intent-${i.id}`}>
-                    {i.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </motion.div>
         </div>
         <div className="mx-auto w-full max-w-[400px] sm:max-w-[520px] lg:max-w-none">
