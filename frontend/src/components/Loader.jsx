@@ -6,16 +6,15 @@ import { EASE } from "@/components/motion";
 const shouldShow = () => {
   try {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
-    if (!window.matchMedia("(min-width: 1024px) and (pointer: fine)").matches) return false; // desktop only
     return !sessionStorage.getItem("zv-intro");
   } catch (e) {
     return false;
   }
 };
 
-// Short, first-visit-only intro, desktop only. It is part of the prerendered HTML (so it covers the
+// Short, first-visit-only intro (desktop and mobile). It is part of the prerendered HTML (so it covers the
 // page from the first frame instead of flashing in after hydration); index.html hides it before paint
-// on mobile and for returning visitors, and hydration then removes it.
+// for returning visitors and reduced-motion users, and hydration then removes it.
 export default function Loader() {
   const [show, setShow] = useState(true);
   useEffect(() => { if (!shouldShow()) setShow(false); }, []);
@@ -31,7 +30,7 @@ export default function Loader() {
       {show && (
         <motion.div
           data-testid="intro-loader"
-          className="intro-loader fixed inset-0 z-[90] hidden flex-col items-center justify-center bg-z-bg lg:flex"
+          className="intro-loader fixed inset-0 z-[90] flex-col items-center justify-center bg-z-bg flex"
           exit={{ clipPath: "inset(0 0 100% 0)" }}
           transition={{ duration: 0.8, ease: EASE }}
         >
