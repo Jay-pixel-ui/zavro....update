@@ -1,0 +1,20 @@
+# Zavro Solutions Pte. Ltd.
+
+> Singapore-based digital growth and IT solutions team (UEN 202540684M). We connect websites, e-commerce, custom software, mobile apps, AI automation, SEO, GEO, social media, branding and business consulting for SMEs and founders in Singapore and remotely worldwide.
+
+Contact: ceo@zavrosolutions.site · WhatsApp +65 8980 5150
+
+## Pages
+- [Services](https://www.zavrosolutions.site/services): services organised by the problem they solve
+- [AI automation](https://www.zavrosolutions.site/services/ai-automation)
+- [Website development](https://www.zavrosolutions.site/services/web-development)
+- [E-commerce development](https://www.zavrosolutions.site/services/ecommerce-development)
+- [Custom software](https://www.zavrosolutions.site/services/software-development)
+- [Mobile apps](https://www.zavrosolutions.site/services/mobile-app-development)
+- [Digital marketing](https://www.zavrosolutions.site/services/digital-marketing)
+- [SEO](https://www.zavrosolutions.site/services/seo)
+- [GEO / AI-search visibility](https://www.zavrosolutions.site/services/geo)
+- [Social media](https://www.zavrosolutions.site/services/social-media)
+- [Branding](https://www.zavrosolutions.site/services/branding)
+- [Business consulting](https://www.zavrosolutions.site/services/business-consulting)
+- [Work](https://www.zavrosolutions.site/work) · [Process](https://www.zavrosolutions.site/process) · [About](https://www.zavrosolutions.site/about) · [Contact](https://www.zavrosolutions.site/contact)

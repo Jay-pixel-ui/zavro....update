@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #02040a;
+  --navy: #070b14;
+  --surface: #0d1322;
+  --cyan: #00e5ff;
+  --gold: #ffb800;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --grad: linear-gradient(92deg, #00e5ff 0%, #5ea8ff 34%, #b98cff 68%, #ffb800 100%);
+  --grad-cta: linear-gradient(92deg, #67e8f9 0%, #93c5fd 50%, #fcd34d 100%);
+}
+
+html { background: var(--bg); -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #cbd5e1;
+  font-family: "Outfit", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: rgba(0, 229, 255, 0.28); color: #fff; }
+
+h1, h2, h3, h4 { color: #fff; }
+
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
+
+.font-display { letter-spacing: -0.02em; }
+
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 100%;
+  animation: sweep 2.4s var(--ease) 0.4s 1 both;
+}
+@keyframes sweep { from { background-position: 100% 0; } to { background-position: 0 0; } }
+
+.eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #67e8f9;
+}
+
+.glass {
+  background: rgba(13, 19, 34, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-strong {
+  background: rgba(4, 6, 13, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 229, 255, 0.22);
+}
+
+.btn-primary {
+  background: var(--grad-cta);
+  color: #02040a;
+  box-shadow: 0 0 0 1px rgba(103, 232, 249, 0.4), 0 10px 40px -12px rgba(0, 229, 255, 0.55);
+  transition: box-shadow .4s var(--ease), transform .3s var(--ease), filter .3s var(--ease);
+}
+.btn-primary:hover { box-shadow: 0 0 0 1px rgba(252, 211, 77, 0.6), 0 14px 50px -10px rgba(255, 184, 0, 0.5); filter: saturate(1.1); }
+.btn-ghost {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #fff;
+  transition: border-color .3s var(--ease), background-color .3s var(--ease);
+}
+.btn-ghost:hover { border-color: rgba(0, 229, 255, 0.6); background-color: rgba(0, 229, 255, 0.06); }
+
+.link-u { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .4s var(--ease); }
+.link-u:hover { background-size: 100% 1px; }
+
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.grid-lines {
+  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.route-dash { stroke-dasharray: 4 8; animation: dash 3.2s linear infinite; }
+@keyframes dash { to { stroke-dashoffset: -48; } }
+
+.marquee-track { animation: marquee 70s linear infinite; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor summary, html.has-cursor label, html.has-cursor select { cursor: none; }
+html.has-cursor input, html.has-cursor textarea { cursor: text; }
+
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] .faq-icon { transform: rotate(45deg); }
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .route-dash, .marquee-track, .grad-text, .pulse-soft { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
+.pulse-soft { animation: pulse 3.6s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: .55; } 50% { opacity: 1; } }

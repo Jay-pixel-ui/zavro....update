@@ -1,0 +1,46 @@
+# Zavro Solutions — crawler policy (decision recorded in README, 2026-10-12)
+# Canonical host: https://www.zavrosolutions.site
+# Search crawlers and AI *search* crawlers are allowed so public pages can be discovered and cited.
+# AI *training* crawlers are disallowed. Owner may change this; inclusion is never guaranteed either way.
+
+# --- General search engines (Googlebot, Bingbot, etc.) ---
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# --- AI search / user-triggered fetchers: allowed ---
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# --- AI model-training crawlers: disallowed ---
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+Sitemap: https://www.zavrosolutions.site/sitemap.xml
