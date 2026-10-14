@@ -31,7 +31,7 @@ Enquiries → validated server-side → stored in MongoDB `enquiries` (reference
 Allowed: all search engines, OAI-SearchBot, ChatGPT-User, PerplexityBot, Perplexity-User, Claude-SearchBot, Claude-User. Disallowed (training): GPTBot, Google-Extended, ClaudeBot, CCBot, Applebot-Extended. Preview hosts emit `noindex`.
 
 ## Known limitations
-- Client-rendered React: page text is injected by JavaScript. Google renders JS, but some AI crawlers don't. Recommended before launch: add prerendering (e.g. react-snap or a prerender service) so each route ships static HTML.
+- Prerendering: `npm run build` runs `craco build` then `scripts/prerender.mjs`, which renders every route to static HTML (title, description, canonical, JSON-LD and body text), then hydrates in the browser. It also regenerates `sitemap.xml`, `llms.txt` and `llms-full.txt` from the same data files the pages use. Add a service, project or published article and the next build picks it up. Needs `esbuild` (a devDependency). The prerender bundle treats the build as the production host, so preview hosts must be noindexed by the host (Vercel does this on preview deployments).
 - In-memory rate limiting resets on restart and is per-instance.
 
 See `docs/launch-checklist.md`.

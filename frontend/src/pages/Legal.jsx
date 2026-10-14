@@ -47,7 +47,7 @@ export function Privacy() {
 
 export function Terms() {
   return (
-    <LegalShell title="Terms of use" path="/terms" updated="12 October 2026" description="Terms for using the Zavro Solutions website." testid="terms-page">
+    <LegalShell title="Terms of use" path="/terms" updated="12 October 2026" description="Terms for using the Zavro Solutions Pte. Ltd. website: acceptable use, content accuracy, liability and how to contact us." testid="terms-page">
       <section><h2>About this website</h2><p className="mt-3">This website is operated by {SITE.legalName} (UEN {SITE.uen}) to describe our services and receive enquiries. Using it does not create a client relationship; engagements are governed by a separate written agreement.</p></section>
       <section><h2>Information on this site</h2><p className="mt-3">We aim to keep content accurate, but it is general information, not professional advice for your specific situation. Service descriptions do not guarantee particular results, rankings, timelines or prices.</p></section>
       <section><h2>Intellectual property</h2><p className="mt-3">The Zavro name, logo and site content belong to {SITE.legalName}. Client names appear with permission and remain the property of their owners.</p></section>

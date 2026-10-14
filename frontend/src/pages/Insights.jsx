@@ -62,7 +62,7 @@ export function InsightArticle() {
   const ld = [ORG_LD, { "@context": "https://schema.org", "@type": "BlogPosting", headline: a.title, description: a.description, datePublished: a.publishedAt, dateModified: a.updatedAt || a.publishedAt, author: { "@type": "Organization", name: a.author, url: SITE.url }, publisher: { "@id": `${SITE.url}/#organization` }, mainEntityOfPage: `${SITE.url}${path}` }];
   return (
     <>
-      <Seo title={`${a.title} | Zavro Solutions`} description={a.description} path={path} type="article" jsonLd={ld} crumbs={[{ to: "/", label: "Home" }, { to: "/insights", label: "Insights" }, { to: path, label: a.title }]} />
+      <Seo title={a.metaTitle || `${a.title} | Zavro Solutions`} description={a.description} path={path} type="article" jsonLd={ld} crumbs={[{ to: "/", label: "Home" }, { to: "/insights", label: "Insights" }, { to: path, label: a.title }]} />
       <article className="px-5 pb-24 pt-28 sm:px-8 sm:pt-36">
         <div className="mx-auto max-w-[760px]">
           <Breadcrumbs items={[{ to: "/", label: "Home" }, { to: "/insights", label: "Insights" }, { to: path, label: a.title }]} />

@@ -14,7 +14,9 @@ const shouldShow = () => {
 
 // Short, first-visit-only intro. Page content renders underneath immediately.
 export default function Loader() {
-  const [show, setShow] = useState(shouldShow);
+  // Starts hidden so server-rendered HTML and the first client render match; shown after mount on first visit.
+  const [show, setShow] = useState(false);
+  useEffect(() => { if (shouldShow()) setShow(true); }, []);
   useEffect(() => {
     if (!show) return undefined;
     try { sessionStorage.setItem("zv-intro", "1"); } catch (e) { /* ignore */ }

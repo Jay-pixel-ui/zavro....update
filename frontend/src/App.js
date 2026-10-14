@@ -19,10 +19,8 @@ const Terms = lazy(() => import("@/pages/Legal").then((m) => ({ default: m.Terms
 
 const Fallback = () => <div className="min-h-screen" aria-busy="true" />;
 
-export default function App() {
-  useEffect(() => { captureUtm(); }, []);
+export function AppRoutes() {
   return (
-    <BrowserRouter>
       <Suspense fallback={<Fallback />}>
         <Routes>
           <Route element={<Layout />}>
@@ -42,6 +40,14 @@ export default function App() {
           </Route>
         </Routes>
       </Suspense>
+  );
+}
+
+export default function App() {
+  useEffect(() => { captureUtm(); }, []);
+  return (
+    <BrowserRouter>
+      <AppRoutes />
     </BrowserRouter>
   );
 }

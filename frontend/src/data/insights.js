@@ -1,10 +1,11 @@
 // Publish an article by adding a record with published: true after review.
-// Fields: slug, title, description, category, author, publishedAt, updatedAt, answer, body: [{h, p: []}], checklist, relatedServices
+// Fields: slug, metaTitle (optional, ≤65 chars for the <title>), title, description, category, author, publishedAt, updatedAt, answer, body: [{h, p: []}], checklist, relatedServices
 export const CATEGORIES = ["AI & automation", "Web & software", "Search & GEO", "Brand & strategy"];
 
 export const INSIGHTS = [
   {
     slug: "ai-automation-for-singapore-smes",
+    metaTitle: "AI automation for Singapore SMEs: where it helps | Zavro Solutions",
     published: true,
     title: "AI automation for Singapore SMEs: where it helps, and where it doesn't",
     description: "A practical guide for Singapore SMEs on choosing what to automate, when to use rules instead of AI, how to handle data under the PDPA, and how to start small.",
@@ -52,9 +53,10 @@ export const INSIGHTS = [
   },
   {
     slug: "geo-ai-search-visibility-guide",
+    metaTitle: "GEO explained: make your business understandable to AI | Zavro Solutions",
     published: true,
     title: "GEO explained: how to make your business understandable to AI search",
-    description: "Generative Engine Optimization in plain English for Singapore businesses: how AI answer tools find content, what helps them understand you, what to avoid and how to measure it.",
+    description: "GEO in plain English for Singapore businesses: how AI answer tools find content, what helps them understand you, what to avoid and how to measure it.",
     category: "Search & GEO",
     author: "Zavro Solutions team",
     publishedAt: "2026-10-14",

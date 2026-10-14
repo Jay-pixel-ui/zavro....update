@@ -141,7 +141,9 @@ export default function ServicePage() {
   if (!s) return <NotFound />;
   const sig = hasSignature(s.slug);
   const visual = <ServiceVisual kind={s.visual} label={`Illustrative diagram for ${s.short}`} />;
-  const ld = [ORG_LD, { "@context": "https://schema.org", "@type": "Service", name: s.short, serviceType: s.short, description: s.description, url: `${SITE.url}/services/${s.slug}`, provider: { "@id": `${SITE.url}/#organization` }, areaServed: ["Singapore", "Worldwide (remote)"] }];
+  const ld = [ORG_LD, { "@context": "https://schema.org", "@type": "Service", name: s.short, serviceType: s.short, description: s.description, url: `${SITE.url}/services/${s.slug}`, provider: { "@id": `${SITE.url}/#organization` }, areaServed: ["Singapore", "Worldwide (remote)"] },
+    ...(s.faqs?.length ? [{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: s.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }] : []),
+  ];
 
   if (sig) {
     return (

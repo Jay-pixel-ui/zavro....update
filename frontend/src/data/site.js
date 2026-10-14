@@ -19,7 +19,9 @@ export const SITE = {
 
 export const PRODUCTION_HOSTS = ["www.zavrosolutions.site", "zavrosolutions.site"];
 export const IS_PRODUCTION =
-  typeof window !== "undefined" && PRODUCTION_HOSTS.includes(window.location.hostname);
+  (typeof window !== "undefined"
+    ? PRODUCTION_HOSTS.includes(window.location.hostname)
+    : globalThis.__ZAVRO_PRERENDER__ === true); // static HTML is built for the production host; preview hosts are noindexed via response headers
 
 // Hard switch: sample content can never render on the production host.
 export const SHOW_DEMO_CONTENT =
