@@ -44,9 +44,6 @@ export default function Loader() {
             <motion.img src={SITE.markSmall} alt="" width="120" height="43" className="relative w-[120px]" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, ease: EASE }} />
           </div>
           <p className="eyebrow mt-8">Initializing intelligent systems</p>
-          <button type="button" onClick={() => setShow(false)} data-testid="intro-skip-button" className="mt-6 min-h-[44px] rounded-full px-5 font-mono text-xs uppercase tracking-widest text-z-body hover:text-white">
-            Skip intro
-          </button>
         </motion.div>
       )}
     </AnimatePresence>
