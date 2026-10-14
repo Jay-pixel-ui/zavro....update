@@ -120,3 +120,49 @@ details[open] .faq-icon { transform: rotate(45deg); }
 }
 .pulse-soft { animation: pulse 3.6s ease-in-out infinite; }
 @keyframes pulse { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+
+/* Cinematic background — atmospheric light fields */
+.signal-aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+  will-change: transform;
+  mix-blend-mode: screen;
+}
+.signal-aurora--cyan {
+  width: 62vw; height: 62vw; left: -14vw; top: -10vh;
+  background: radial-gradient(closest-side, rgba(0,229,255,0.32), rgba(0,229,255,0) 70%);
+  animation: aurora-a 26s var(--ease) infinite;
+}
+.signal-aurora--blue {
+  width: 56vw; height: 56vw; right: -16vw; top: 6vh;
+  background: radial-gradient(closest-side, rgba(30,144,255,0.28), rgba(30,144,255,0) 70%);
+  animation: aurora-b 32s var(--ease) infinite;
+}
+.signal-aurora--purple {
+  width: 48vw; height: 48vw; left: 18vw; bottom: -18vh;
+  background: radial-gradient(closest-side, rgba(138,43,226,0.22), rgba(138,43,226,0) 70%);
+  animation: aurora-c 38s var(--ease) infinite;
+}
+.signal-aurora--gold {
+  width: 30vw; height: 30vw; right: 8vw; bottom: 4vh;
+  background: radial-gradient(closest-side, rgba(255,184,0,0.14), rgba(255,184,0,0) 70%);
+  animation: aurora-a 44s var(--ease) infinite reverse;
+}
+@media (max-width: 767px) {
+  .signal-aurora { filter: blur(64px); opacity: 0.4; }
+}
+@keyframes aurora-a { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(6vw,4vh,0) scale(1.12); } }
+@keyframes aurora-b { 0%,100% { transform: translate3d(0,0,0) scale(1.05); } 50% { transform: translate3d(-5vw,5vh,0) scale(0.92); } }
+@keyframes aurora-c { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(4vw,-4vh,0) scale(1.15); } }
+
+/* Vignette keeps foreground text readable over the animation */
+.signal-vignette {
+  background:
+    radial-gradient(ellipse at 50% 38%, rgba(2,4,10,0) 0%, rgba(2,4,10,0.35) 72%, rgba(2,4,10,0.72) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-aurora { animation: none !important; }
+}
