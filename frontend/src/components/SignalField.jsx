@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
  * Cinematic, layered "signal field" background for Zavro.
  * Layers (back to front):
  *   1. CSS aurora blobs — large, softly-blurred cyan/blue/purple/gold light fields (atmosphere + depth).
- *   2. Canvas — flowing luminous ribbons + bokeh particles + (desktop) cursor glow, additive blending.
+ *   2. Canvas — bokeh particles + (desktop) cursor glow, additive blending.
  *   3. Vignette — keeps foreground text readable.
  * Fixed behind all content, never intercepts pointer events. No external dependencies.
  * Respects prefers-reduced-motion (single static frame), reduces density on mobile,
@@ -25,25 +25,11 @@ export default function SignalField() {
     let w = 0;
     let h = 0;
     let mobile = false;
-    let ribbons = [];
     let particles = [];
     let rafId = null;
     let running = true;
-    let t = 0;
-    let scrollY = window.scrollY || 0;
 
     const mouse = { x: -9999, y: -9999, cx: -9999, cy: -9999, active: false };
-
-    // Per-section mood palettes (4 ribbon colours each). Ribbons lerp toward the
-    // palette of the section currently in view, so each area feels bespoke.
-    const MOODS = {
-      default: [[0, 229, 255], [94, 168, 255], [185, 140, 255], [255, 184, 0]],
-      ai: [[0, 229, 255], [255, 184, 0], [94, 168, 255], [0, 229, 255]],
-      build: [[0, 229, 255], [94, 168, 255], [30, 144, 255], [94, 168, 255]],
-      growth: [[185, 140, 255], [94, 168, 255], [0, 229, 255], [185, 140, 255]],
-      strategy: [[255, 184, 0], [185, 140, 255], [94, 168, 255], [255, 184, 0]],
-    };
-    let target = MOODS.default;
 
     const build = () => {
       w = window.innerWidth;
@@ -54,24 +40,6 @@ export default function SignalField() {
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      // Flowing ribbons
-      const ribbonCount = mobile ? 3 : 5;
-      ribbons = Array.from({ length: ribbonCount }, (_, i) => {
-        const color = target[i % target.length].slice();
-        return {
-          color,
-          idx: i,
-          yBase: h * (0.18 + 0.64 * (i / (ribbonCount - 1 || 1))),
-          amp: h * (mobile ? 0.05 : 0.07) * (0.7 + Math.random() * 0.6),
-          freq: (0.6 + Math.random() * 0.5) / Math.max(w, 1) * Math.PI * 2,
-          speed: 0.08 + Math.random() * 0.06,
-          phase: Math.random() * Math.PI * 2,
-          drift: (i % 2 === 0 ? 1 : -1) * (0.02 + Math.random() * 0.02),
-          width: (mobile ? 1.1 : 1.6) + Math.random() * 0.8,
-          depth: 0.4 + (i / ribbonCount) * 0.6, // parallax factor
-        };
-      });
 
       // Bokeh particles
       const base = mobile ? 20000 : 13000;
@@ -85,34 +53,6 @@ export default function SignalField() {
         gold: i % 11 === 0,
         depth: 0.3 + Math.random() * 0.7,
       }));
-    };
-
-    const drawRibbon = (rb) => {
-      const [r, g, b] = rb.color;
-      const px = scrollY * rb.drift; // subtle scroll-driven evolution between sections
-      const y0 = rb.yBase - scrollY * 0.03 * rb.depth;
-      const step = mobile ? 20 : 14;
-      ctx.beginPath();
-      for (let x = -40; x <= w + 40; x += step) {
-        const y =
-          y0 +
-          Math.sin(x * rb.freq + t * rb.speed + rb.phase + px) * rb.amp +
-          Math.sin(x * rb.freq * 2.3 + t * rb.speed * 0.6) * rb.amp * 0.25;
-        if (x === -40) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      // soft wide glow
-      ctx.strokeStyle = `rgba(${r},${g},${b},0.06)`;
-      ctx.lineWidth = rb.width * 7;
-      ctx.stroke();
-      // mid
-      ctx.strokeStyle = `rgba(${r},${g},${b},0.14)`;
-      ctx.lineWidth = rb.width * 2.6;
-      ctx.stroke();
-      // bright core
-      ctx.strokeStyle = `rgba(${Math.min(r + 60, 255)},${Math.min(g + 60, 255)},${Math.min(b + 60, 255)},0.5)`;
-      ctx.lineWidth = rb.width;
-      ctx.stroke();
     };
 
     const drawParticle = (p) => {
@@ -137,8 +77,6 @@ export default function SignalField() {
     const render = () => {
       ctx.clearRect(0, 0, w, h);
       ctx.globalCompositeOperation = "lighter";
-
-      for (let i = 0; i < ribbons.length; i += 1) drawRibbon(ribbons[i]);
 
       // connecting lines between nearby small particles (subtle)
       const maxD = mobile ? 100 : 140;
@@ -181,15 +119,6 @@ export default function SignalField() {
     };
 
     const step = () => {
-      t += 1;
-      // gently lerp each ribbon's colour toward the current section mood
-      for (let i = 0; i < ribbons.length; i += 1) {
-        const rb = ribbons[i];
-        const tgt = target[rb.idx % target.length];
-        rb.color[0] += (tgt[0] - rb.color[0]) * 0.02;
-        rb.color[1] += (tgt[1] - rb.color[1]) * 0.02;
-        rb.color[2] += (tgt[2] - rb.color[2]) * 0.02;
-      }
       for (let i = 0; i < particles.length; i += 1) {
         const p = particles[i];
         p.x += p.vx;
@@ -221,7 +150,6 @@ export default function SignalField() {
       if (document.hidden) stop();
       else if (!reduced) start();
     };
-    const onScroll = () => { scrollY = window.scrollY || 0; };
     const onMove = (e) => { mouse.x = e.clientX; mouse.y = e.clientY; if (!mouse.active) { mouse.cx = e.clientX; mouse.cy = e.clientY; } mouse.active = true; };
     const onLeave = () => { mouse.active = false; };
 
@@ -237,39 +165,6 @@ export default function SignalField() {
 
     build();
     window.addEventListener("resize", onResize);
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    // Watch sections tagged with data-mood; shift ribbon palette toward the
-    // mood of whichever tagged section is most prominent in the viewport.
-    const observed = new WeakSet();
-    const ratios = new Map();
-    let moodObserver = null;
-    let rescanId = null;
-    const applyMood = () => {
-      let best = null;
-      let bestRatio = 0;
-      ratios.forEach((ratio, el) => {
-        if (ratio > bestRatio) { bestRatio = ratio; best = el; }
-      });
-      const name = best && best.dataset.mood;
-      target = MOODS[name] || MOODS.default;
-    };
-    if ("IntersectionObserver" in window) {
-      moodObserver = new IntersectionObserver((entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) ratios.set(e.target, e.intersectionRatio);
-          else ratios.delete(e.target);
-        });
-        applyMood();
-      }, { threshold: [0, 0.25, 0.5, 0.75], rootMargin: "-20% 0px -20% 0px" });
-      const scan = () => {
-        document.querySelectorAll("[data-mood]").forEach((el) => {
-          if (!observed.has(el)) { observed.add(el); moodObserver.observe(el); }
-        });
-      };
-      scan();
-      rescanId = window.setInterval(scan, 1200); // pick up sections added on route change
-    }
 
     if (reduced) {
       render();
@@ -285,10 +180,7 @@ export default function SignalField() {
     return () => {
       stop();
       clearTimeout(resizeTimer);
-      if (rescanId) window.clearInterval(rescanId);
-      if (moodObserver) moodObserver.disconnect();
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerout", onLeave);
       document.removeEventListener("visibilitychange", onVisibility);
