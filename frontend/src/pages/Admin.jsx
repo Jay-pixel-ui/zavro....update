@@ -20,7 +20,7 @@ async function api(path, { token, method = "GET", body } = {}) {
   return data;
 }
 
-const field = "w-full rounded-ctl border border-black/10 bg-white/70 px-3 py-2 text-sm text-z-navy outline-none focus:border-z-cyan";
+const field = "w-full rounded-ctl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white outline-none placeholder:text-z-muted focus:border-z-cyan [color-scheme:dark]";
 
 function Login({ onToken }) {
   const [email, setEmail] = useState("");
@@ -40,7 +40,7 @@ function Login({ onToken }) {
   return (
     <main className="min-h-screen grid place-items-center px-4 bg-z-bg">
       <form onSubmit={submit} className="glass-strong rounded-card p-8 w-full max-w-sm space-y-4">
-        <h1 className="font-display text-2xl text-z-navy">Team sign in</h1>
+        <h1 className="font-display text-2xl text-white">Team sign in</h1>
         <p className="text-sm text-z-muted">Zavro Solutions admin</p>
         <label className="block text-sm text-z-body">Email
           <input className={field} type="email" autoComplete="username" required value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -76,12 +76,12 @@ function Chat({ token, onAuthFail }) {
   }
   return (
     <section className="glass rounded-card p-4 flex flex-col h-[28rem]">
-      <h2 className="font-display text-lg text-z-navy mb-2">Sales assistant</h2>
+      <h2 className="font-display text-lg text-white mb-2">Sales assistant</h2>
       <div className="flex-1 overflow-y-auto space-y-2 text-sm">
         {!msgs.length && <p className="text-z-muted">Ask for a follow-up email, objection reply, or proposal outline.</p>}
         {msgs.map((m, i) => (
           <div key={i} className={m.role === "user" ? "text-right" : ""}>
-            <span className={`inline-block max-w-[90%] whitespace-pre-wrap rounded-ctl px-3 py-2 text-left ${m.role === "user" ? "bg-z-navy text-white" : "bg-white/70 text-z-body"}`}>{m.content}</span>
+            <span className={`inline-block max-w-[90%] whitespace-pre-wrap rounded-ctl px-3 py-2 text-left ${m.role === "user" ? "bg-z-cyan text-z-navy" : "bg-white/10 text-white"}`}>{m.content}</span>
           </div>
         ))}
         {busy && <p className="text-z-muted">Thinking…</p>}
@@ -127,16 +127,16 @@ function LeadDetail({ lead, token, me, team, onChange, onAuthFail }) {
     <section className="glass-strong rounded-card p-5 space-y-4">
       <header className="flex flex-wrap items-start justify-between gap-2">
         <div className="min-w-0">
-          <h2 className="font-display text-xl text-z-navy break-words">{lead.name}</h2>
+          <h2 className="font-display text-xl text-white break-words">{lead.name}</h2>
           <p className="text-sm text-z-body break-all"><a href={`mailto:${lead.email}`} className="underline">{lead.email}</a>{lead.phone ? ` · ${lead.phone}` : ""}</p>
           <p className="text-xs text-z-muted">{[lead.company, lead.service, lead.timing, lead.reference, when(lead.created_at)].filter(Boolean).join(" · ")}</p>
         </div>
         <div className="text-right text-sm">
-          <div className="text-z-navy font-semibold">AI score: {lead.ai_score ?? "—"}</div>
+          <div className="text-white font-semibold">AI score: {lead.ai_score ?? "—"}</div>
           <button type="button" onClick={rescore} className="underline text-z-cyan">Re-score with AI</button>
         </div>
       </header>
-      {lead.message && <p className="whitespace-pre-wrap text-sm text-z-body bg-white/60 rounded-ctl p-3">{lead.message}</p>}
+      {lead.message && <p className="whitespace-pre-wrap text-sm text-z-body bg-white/5 rounded-ctl p-3">{lead.message}</p>}
       {lead.ai_summary && <p className="text-sm text-z-muted"><strong>AI summary:</strong> {lead.ai_summary}</p>}
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="text-sm text-z-body">Status
@@ -168,7 +168,7 @@ function LeadDetail({ lead, token, me, team, onChange, onAuthFail }) {
         </div>
       </form>
       <ul className="space-y-2 text-sm">
-        {acts.map((a) => <li key={a.id} className="bg-white/60 rounded-ctl p-2"><span className="text-z-muted">{a.kind} · {when(a.created_at)}</span><br />{a.note}</li>)}
+        {acts.map((a) => <li key={a.id} className="bg-white/5 rounded-ctl p-2"><span className="text-z-muted">{a.kind} · {when(a.created_at)}</span><br />{a.note}</li>)}
         {!acts.length && <li className="text-z-muted">No activity yet.</li>}
       </ul>
       {msg && <p role="status" className="text-xs text-z-muted">{msg}</p>}
@@ -184,13 +184,13 @@ function Bars({ title, rows, label = (r) => r.name, hint }) {
   const max = Math.max(1, ...rows.map((r) => r.views));
   return (
     <section className="glass rounded-card p-4 min-w-0">
-      <h3 className="font-display text-base text-z-navy mb-2">{title}</h3>
+      <h3 className="font-display text-base text-white mb-2">{title}</h3>
       {hint && <p className="text-xs text-z-muted mb-2">{hint}</p>}
       <ul className="space-y-1.5 text-sm">
         {rows.map((r) => (
           <li key={r.name} className="min-w-0">
-            <div className="flex justify-between gap-2"><span className="truncate text-z-body">{label(r)}</span><span className="text-z-navy tabular-nums">{r.views}</span></div>
-            <div className="h-1.5 rounded-full bg-z-navy/10"><div className="h-1.5 rounded-full bg-z-cyan" style={{ width: `${(r.views / max) * 100}%` }} /></div>
+            <div className="flex justify-between gap-2"><span className="truncate text-z-body">{label(r)}</span><span className="text-white tabular-nums">{r.views}</span></div>
+            <div className="h-1.5 rounded-full bg-white/10"><div className="h-1.5 rounded-full bg-z-cyan" style={{ width: `${(r.views / max) * 100}%` }} /></div>
           </li>
         ))}
         {!rows.length && <li className="text-z-muted">No data yet.</li>}
@@ -212,7 +212,7 @@ function Visitors({ token, onAuthFail }) {
     <div className="space-y-5">
       <div className="flex flex-wrap items-center gap-2">
         {[1, 7, 30, 90].map((n) => (
-          <button key={n} type="button" onClick={() => setDays(n)} className={`rounded-ctl px-3 py-1 text-sm ${days === n ? "bg-z-navy text-white" : "glass text-z-body"}`}>{n === 1 ? "Today" : `${n} days`}</button>
+          <button key={n} type="button" onClick={() => setDays(n)} className={`rounded-ctl px-3 py-1 text-sm ${days === n ? "bg-z-cyan text-z-navy" : "glass text-z-body"}`}>{n === 1 ? "Today" : `${n} days`}</button>
         ))}
         <span className="text-xs text-z-muted">Anonymous, cookie-free. Unique visitors are counted per day.</span>
       </div>
@@ -221,11 +221,11 @@ function Visitors({ token, onAuthFail }) {
         <>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
             {[["Page views", d.views], ["Unique visitors", d.visitors], ["Views today", d.today_views], ["Visitors today", d.today_visitors]].map(([k, v]) => (
-              <div key={k} className="glass rounded-card p-4"><div className="text-xs text-z-muted">{k}</div><div className="font-display text-xl text-z-navy">{v}</div></div>
+              <div key={k} className="glass rounded-card p-4"><div className="text-xs text-z-muted">{k}</div><div className="font-display text-xl text-white">{v}</div></div>
             ))}
           </div>
           <section className="glass rounded-card p-4">
-            <h3 className="font-display text-base text-z-navy mb-2">Views per day</h3>
+            <h3 className="font-display text-base text-white mb-2">Views per day</h3>
             <div className="flex items-end gap-[2px] h-28" role="img" aria-label="Daily page views">
               {d.daily.map((x) => <div key={x.d} title={`${x.d}: ${x.views} views, ${x.visitors} visitors`} className="flex-1 bg-z-cyan/70 rounded-t min-h-[2px]" style={{ height: `${(x.views / maxDay) * 100}%` }} />)}
             </div>
@@ -241,12 +241,12 @@ function Visitors({ token, onAuthFail }) {
             <Bars title="Campaigns (UTM)" rows={d.campaigns} hint="Only visits that arrived with utm_ links." />
           </div>
           <section className="glass rounded-card p-4 overflow-x-auto">
-            <h3 className="font-display text-base text-z-navy mb-2">Latest visits</h3>
+            <h3 className="font-display text-base text-white mb-2">Latest visits</h3>
             <table className="w-full text-sm text-left">
               <thead className="text-xs text-z-muted"><tr><th className="pr-3">Time</th><th className="pr-3">Page</th><th className="pr-3">Location</th><th className="pr-3">Device</th><th>From</th></tr></thead>
               <tbody>
                 {d.recent.map((r, i) => (
-                  <tr key={i} className="border-t border-black/5"><td className="pr-3 whitespace-nowrap">{when(r.created_at)}</td><td className="pr-3">{r.path}</td><td className="pr-3 whitespace-nowrap">{flag(r.country)} {[r.city, countryName(r.country)].filter(Boolean).join(", ")}</td><td className="pr-3 whitespace-nowrap">{r.device} · {r.browser}</td><td>{r.referrer_host || "Direct"}</td></tr>
+                  <tr key={i} className="border-t border-white/10"><td className="pr-3 whitespace-nowrap">{when(r.created_at)}</td><td className="pr-3">{r.path}</td><td className="pr-3 whitespace-nowrap">{flag(r.country)} {[r.city, countryName(r.country)].filter(Boolean).join(", ")}</td><td className="pr-3 whitespace-nowrap">{r.device} · {r.browser}</td><td>{r.referrer_host || "Direct"}</td></tr>
                 ))}
                 {!d.recent.length && <tr><td colSpan={5} className="py-3 text-z-muted">No visits recorded yet.</td></tr>}
               </tbody>
@@ -290,7 +290,7 @@ function Dashboard({ token, onSignOut }) {
     <main className="min-h-screen bg-z-bg px-4 py-6">
       <div className="mx-auto max-w-6xl space-y-5">
         <header className="flex items-center justify-between gap-3">
-          <h1 className="font-display text-2xl text-z-navy">Zavro admin</h1>
+          <h1 className="font-display text-2xl text-white">Zavro admin</h1>
           <div className="flex items-center gap-3 text-sm text-z-body">
             {me && <span className="hidden sm:inline">{me.name || me.email} · {me.role}</span>}
             <button type="button" onClick={load} className="underline">Refresh</button>
@@ -301,7 +301,7 @@ function Dashboard({ token, onSignOut }) {
         {me?.role === "admin" && (
           <div className="flex gap-2" role="tablist" aria-label="Sections">
             {[["leads", "Leads"], ["visitors", "Visitors"]].map(([k, l]) => (
-              <button key={k} type="button" role="tab" aria-selected={tab === k} onClick={() => setTab(k)} className={`rounded-ctl px-4 py-1.5 text-sm ${tab === k ? "bg-z-navy text-white" : "glass text-z-body"}`}>{l}</button>
+              <button key={k} type="button" role="tab" aria-selected={tab === k} onClick={() => setTab(k)} className={`rounded-ctl px-4 py-1.5 text-sm ${tab === k ? "bg-z-cyan text-z-navy" : "glass text-z-body"}`}>{l}</button>
             ))}
           </div>
         )}
@@ -309,13 +309,13 @@ function Dashboard({ token, onSignOut }) {
         {stats && (
           <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
             {[["Leads", stats.total], ["Last 7 days", stats.last7], ["Open pipeline", money(stats.open_cents / 1)], ["Won", money(stats.won_cents)], ["Win rate", stats.win_rate == null ? "—" : `${stats.win_rate}%`]].map(([k, v]) => (
-              <div key={k} className="glass rounded-card p-4"><div className="text-xs text-z-muted">{k}</div><div className="font-display text-xl text-z-navy">{v}</div></div>
+              <div key={k} className="glass rounded-card p-4"><div className="text-xs text-z-muted">{k}</div><div className="font-display text-xl text-white">{v}</div></div>
             ))}
           </div>
         )}
         <div className="flex flex-wrap gap-2" role="tablist" aria-label="Lead status">
           {["", ...STATUSES].map((s) => (
-            <button key={s || "all"} type="button" onClick={() => setFilter(s)} className={`rounded-ctl px-3 py-1 text-sm ${filter === s ? "bg-z-navy text-white" : "glass text-z-body"}`}>
+            <button key={s || "all"} type="button" onClick={() => setFilter(s)} className={`rounded-ctl px-3 py-1 text-sm ${filter === s ? "bg-z-cyan text-z-navy" : "glass text-z-body"}`}>
               {s || "all"}{stats && s ? ` (${stats.pipeline[s] || 0})` : ""}
             </button>
           ))}
@@ -323,11 +323,11 @@ function Dashboard({ token, onSignOut }) {
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
           <div className="space-y-5 min-w-0">
             <section className="glass rounded-card overflow-hidden">
-              <ul className="divide-y divide-black/5 max-h-[34rem] overflow-y-auto">
+              <ul className="divide-y divide-white/10 max-h-[34rem] overflow-y-auto">
                 {leads.map((l) => (
                   <li key={l.id}>
-                    <button type="button" onClick={() => setSel(l.id)} className={`w-full text-left px-4 py-3 hover:bg-white/60 ${sel === l.id ? "bg-white/70" : ""}`}>
-                      <div className="flex justify-between gap-2"><span className="font-medium text-z-navy truncate">{l.name}</span><span className="text-xs rounded-full bg-z-navy/10 px-2 py-0.5">{l.status}</span></div>
+                    <button type="button" onClick={() => setSel(l.id)} className={`w-full text-left px-4 py-3 hover:bg-white/5 ${sel === l.id ? "bg-white/10" : ""}`}>
+                      <div className="flex justify-between gap-2"><span className="font-medium text-white truncate">{l.name}</span><span className="text-xs rounded-full bg-white/10 px-2 py-0.5">{l.status}</span></div>
                       <div className="text-xs text-z-muted truncate">{[l.company, l.service, l.email].filter(Boolean).join(" · ")}</div>
                       <div className="text-xs text-z-muted">{when(l.created_at)}{l.ai_score != null ? ` · AI ${l.ai_score}` : ""}</div>
                     </button>
