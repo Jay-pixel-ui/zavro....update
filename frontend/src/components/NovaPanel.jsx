@@ -69,7 +69,7 @@ export default function NovaPanel({ onClose }) {
           <X className="h-4 w-4" />
         </button>
       </div>
-      <div className="overflow-y-auto px-5 py-5">
+      <div data-lenis-prevent className="overflow-y-auto px-5 py-5">
         <p className="mb-5 rounded-ctl bg-white/[0.04] p-3 text-[13px] leading-relaxed text-z-body">
           NOVA is a guided set of questions, not a live AI chat. It suggests a starting point from this site's service pages. A person from Zavro reviews every enquiry.
         </p>

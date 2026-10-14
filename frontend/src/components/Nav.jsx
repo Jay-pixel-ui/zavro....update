@@ -74,7 +74,7 @@ function MobileMenu({ onClose }) {
           <X className="h-5 w-5" />
         </button>
       </div>
-      <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-10 [-webkit-overflow-scrolling:touch] [padding-bottom:max(2.5rem,env(safe-area-inset-bottom))]" aria-label="Mobile">
+      <nav data-lenis-prevent className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pb-10 [-webkit-overflow-scrolling:touch] [padding-bottom:max(2.5rem,env(safe-area-inset-bottom))]" aria-label="Mobile">
         {FAMILIES.map((f) => (
           <div key={f.id} className="border-t border-white/10 py-4">
             <p className="eyebrow mb-2">{f.label}</p>
