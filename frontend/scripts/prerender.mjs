@@ -51,6 +51,10 @@ const routes = [
   ...mod.publishedInsights().map((a) => `/insights/${a.slug}`),
 ];
 
+// Private routes: prerendered as a login-only shell so the /admin rewrite never hydrates
+// the home page HTML. Deliberately NOT in `routes`, so never in sitemap/llms files.
+const privateRoutes = ["/admin"];
+
 // Remove the static placeholders from the CRA template: each page supplies its own
 // title/description/canonical (via react-helmet-async) and its own visible content.
 const strip = (html) =>
@@ -97,6 +101,15 @@ for (const route of routes) {
     failed += 1;
     console.error(`FAILED ${route}: ${e && e.stack ? e.stack.split("\n").slice(0, 4).join("\n") : e}`);
   }
+}
+
+for (const route of privateRoutes) {
+  try {
+    const page = await mod.render(route);
+    fs.mkdirSync(path.join(buildDir, route), { recursive: true });
+    fs.writeFileSync(path.join(buildDir, route, "index.html"), compose(page));
+    console.log(`prerendered ${route} (private)`);
+  } catch (e) { failed += 1; console.error(`FAILED ${route}: ${e.message}`); }
 }
 
 // ---------------------------------------------------------------------------

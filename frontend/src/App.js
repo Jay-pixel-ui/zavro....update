@@ -15,6 +15,7 @@ const CaseStudy = lazy(() => import("@/pages/CaseStudy"));
 const Insights = lazy(() => import("@/pages/Insights").then((m) => ({ default: m.Insights })));
 const InsightArticle = lazy(() => import("@/pages/Insights").then((m) => ({ default: m.InsightArticle })));
 const Privacy = lazy(() => import("@/pages/Legal").then((m) => ({ default: m.Privacy })));
+const Admin = lazy(() => import("@/pages/Admin"));
 const Terms = lazy(() => import("@/pages/Legal").then((m) => ({ default: m.Terms })));
 
 const Fallback = () => <div className="min-h-screen" aria-busy="true" />;
@@ -23,6 +24,7 @@ export function AppRoutes() {
   return (
       <Suspense fallback={<Fallback />}>
         <Routes>
+          <Route path="/admin/*" element={<Admin />} />
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<ServicesIndex />} />
