@@ -176,6 +176,88 @@ function LeadDetail({ lead, token, me, team, onChange, onAuthFail }) {
   );
 }
 
+const flag = (cc) => (cc && /^[A-Z]{2}$/.test(cc) ? String.fromCodePoint(...[...cc].map((c) => 127397 + c.charCodeAt(0))) : "🌐");
+let regionNames; try { regionNames = new Intl.DisplayNames(["en"], { type: "region" }); } catch { regionNames = null; }
+const countryName = (cc) => { try { return (cc && regionNames && regionNames.of(cc)) || cc || "Unknown"; } catch { return cc || "Unknown"; } };
+
+function Bars({ title, rows, label = (r) => r.name, hint }) {
+  const max = Math.max(1, ...rows.map((r) => r.views));
+  return (
+    <section className="glass rounded-card p-4 min-w-0">
+      <h3 className="font-display text-base text-z-navy mb-2">{title}</h3>
+      {hint && <p className="text-xs text-z-muted mb-2">{hint}</p>}
+      <ul className="space-y-1.5 text-sm">
+        {rows.map((r) => (
+          <li key={r.name} className="min-w-0">
+            <div className="flex justify-between gap-2"><span className="truncate text-z-body">{label(r)}</span><span className="text-z-navy tabular-nums">{r.views}</span></div>
+            <div className="h-1.5 rounded-full bg-z-navy/10"><div className="h-1.5 rounded-full bg-z-cyan" style={{ width: `${(r.views / max) * 100}%` }} /></div>
+          </li>
+        ))}
+        {!rows.length && <li className="text-z-muted">No data yet.</li>}
+      </ul>
+    </section>
+  );
+}
+
+function Visitors({ token, onAuthFail }) {
+  const [days, setDays] = useState(30);
+  const [d, setD] = useState(null);
+  const [err, setErr] = useState("");
+  useEffect(() => {
+    setErr("");
+    api(`/api/crm/analytics?days=${days}`, { token }).then(setD).catch((x) => (x.status === 401 ? onAuthFail() : setErr("Could not load visitor data. Run migration 0003 if you have not yet.")));
+  }, [days, token, onAuthFail]);
+  const maxDay = d ? Math.max(1, ...d.daily.map((x) => x.views)) : 1;
+  return (
+    <div className="space-y-5">
+      <div className="flex flex-wrap items-center gap-2">
+        {[1, 7, 30, 90].map((n) => (
+          <button key={n} type="button" onClick={() => setDays(n)} className={`rounded-ctl px-3 py-1 text-sm ${days === n ? "bg-z-navy text-white" : "glass text-z-body"}`}>{n === 1 ? "Today" : `${n} days`}</button>
+        ))}
+        <span className="text-xs text-z-muted">Anonymous, cookie-free. Unique visitors are counted per day.</span>
+      </div>
+      {err && <p role="alert" className="text-sm text-red-600">{err}</p>}
+      {d && (
+        <>
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+            {[["Page views", d.views], ["Unique visitors", d.visitors], ["Views today", d.today_views], ["Visitors today", d.today_visitors]].map(([k, v]) => (
+              <div key={k} className="glass rounded-card p-4"><div className="text-xs text-z-muted">{k}</div><div className="font-display text-xl text-z-navy">{v}</div></div>
+            ))}
+          </div>
+          <section className="glass rounded-card p-4">
+            <h3 className="font-display text-base text-z-navy mb-2">Views per day</h3>
+            <div className="flex items-end gap-[2px] h-28" role="img" aria-label="Daily page views">
+              {d.daily.map((x) => <div key={x.d} title={`${x.d}: ${x.views} views, ${x.visitors} visitors`} className="flex-1 bg-z-cyan/70 rounded-t min-h-[2px]" style={{ height: `${(x.views / maxDay) * 100}%` }} />)}
+            </div>
+          </section>
+          <div className="grid gap-5 md:grid-cols-2">
+            <Bars title="Countries" rows={d.countries} label={(r) => `${flag(r.name)} ${countryName(r.name)}`} />
+            <Bars title="Cities" rows={d.cities} />
+            <Bars title="Top pages" rows={d.pages} />
+            <Bars title="Where they came from" rows={d.referrers} />
+            <Bars title="Devices" rows={d.devices} />
+            <Bars title="Browsers" rows={d.browsers} />
+            <Bars title="Operating systems" rows={d.systems} />
+            <Bars title="Campaigns (UTM)" rows={d.campaigns} hint="Only visits that arrived with utm_ links." />
+          </div>
+          <section className="glass rounded-card p-4 overflow-x-auto">
+            <h3 className="font-display text-base text-z-navy mb-2">Latest visits</h3>
+            <table className="w-full text-sm text-left">
+              <thead className="text-xs text-z-muted"><tr><th className="pr-3">Time</th><th className="pr-3">Page</th><th className="pr-3">Location</th><th className="pr-3">Device</th><th>From</th></tr></thead>
+              <tbody>
+                {d.recent.map((r, i) => (
+                  <tr key={i} className="border-t border-black/5"><td className="pr-3 whitespace-nowrap">{when(r.created_at)}</td><td className="pr-3">{r.path}</td><td className="pr-3 whitespace-nowrap">{flag(r.country)} {[r.city, countryName(r.country)].filter(Boolean).join(", ")}</td><td className="pr-3 whitespace-nowrap">{r.device} · {r.browser}</td><td>{r.referrer_host || "Direct"}</td></tr>
+                ))}
+                {!d.recent.length && <tr><td colSpan={5} className="py-3 text-z-muted">No visits recorded yet.</td></tr>}
+              </tbody>
+            </table>
+          </section>
+        </>
+      )}
+    </div>
+  );
+}
+
 function Dashboard({ token, onSignOut }) {
   const [me, setMe] = useState(null);
   const [stats, setStats] = useState(null);
@@ -184,6 +266,7 @@ function Dashboard({ token, onSignOut }) {
   const [filter, setFilter] = useState("");
   const [sel, setSel] = useState(null);
   const [error, setError] = useState("");
+  const [tab, setTab] = useState("leads");
 
   const load = useCallback(async () => {
     try {
@@ -215,6 +298,14 @@ function Dashboard({ token, onSignOut }) {
           </div>
         </header>
         {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
+        {me?.role === "admin" && (
+          <div className="flex gap-2" role="tablist" aria-label="Sections">
+            {[["leads", "Leads"], ["visitors", "Visitors"]].map(([k, l]) => (
+              <button key={k} type="button" role="tab" aria-selected={tab === k} onClick={() => setTab(k)} className={`rounded-ctl px-4 py-1.5 text-sm ${tab === k ? "bg-z-navy text-white" : "glass text-z-body"}`}>{l}</button>
+            ))}
+          </div>
+        )}
+        {tab === "visitors" && me?.role === "admin" ? <Visitors token={token} onAuthFail={onSignOut} /> : <>
         {stats && (
           <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
             {[["Leads", stats.total], ["Last 7 days", stats.last7], ["Open pipeline", money(stats.open_cents / 1)], ["Won", money(stats.won_cents)], ["Win rate", stats.win_rate == null ? "—" : `${stats.win_rate}%`]].map(([k, v]) => (
@@ -251,6 +342,7 @@ function Dashboard({ token, onSignOut }) {
             {current ? <LeadDetail key={current.id} lead={current} token={token} me={me || {}} team={team} onChange={update} onAuthFail={onSignOut} /> : <p className="glass rounded-card p-5 text-sm text-z-muted">Select a lead to see details.</p>}
           </div>
         </div>
+        </>}
       </div>
     </main>
   );

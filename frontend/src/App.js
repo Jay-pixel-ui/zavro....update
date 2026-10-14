@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "@/components/Layout";
 import Home from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
+import Tracker from "@/components/Tracker";
 import { captureUtm } from "@/lib/analytics";
 
 const ServicesIndex = lazy(() => import("@/pages/ServicesIndex"));
@@ -49,6 +50,7 @@ export default function App() {
   useEffect(() => { captureUtm(); }, []);
   return (
     <BrowserRouter>
+      <Tracker />
       <AppRoutes />
     </BrowserRouter>
   );
