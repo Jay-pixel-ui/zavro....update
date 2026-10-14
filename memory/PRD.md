@@ -33,6 +33,13 @@ React CRA + react-router + framer-motion + Lenis + react-helmet-async; FastAPI `
 - P3 Restrained polish: soft cyan hover/focus glow on service family tiles (box-shadow, does not conflict with framer transforms).
 - P4 QA: zero horizontal overflow and menu scroll verified at 320/360/375/390/430/768/1024/1440; no console errors; scroll lock restores after close and after link navigation. P5 loader, cursor, routes, SEO, branding preserved; no dependencies added.
 
+## Implemented (2026-10-14, iteration 5 — service uniqueness, section moods, OG images)
+- Service page uniqueness: new `components/ServiceSignature.jsx` gives 3 bespoke central compositions — AI Automation = "transparent workflow canvas" (enlarged pipeline + principle chips), Web Development = "before/after editorial" (crossed-out before vs glowing after), Digital Marketing = "channels → enquiry loop" (converging horizontal flow + measure/learn/adjust). `ServicePage.jsx` branches to a clean bespoke sequence for these 3 slugs (no duplicated diagram); the other 8 services keep the existing split/stage/inset layouts untouched.
+- Per-section background moods: `SignalField.jsx` now watches `[data-mood]` sections via IntersectionObserver (re-scans every 1.2s for route changes) and gently lerps ribbon colours toward a per-mood palette (ai / build / growth / strategy / default). Home sections tagged (Hero=ai, ServicesBento=build, Work=growth, Process=strategy); each service page tagged with its family. Same system — no new background.
+- Per-page OG share images: generated 6 branded 1264×848 images (default, ai, web, marketing, services, work) in `public/og/`; wired via `Seo image` on home (default), services index, work, and the 3 signature services (`ogImage` in services.js). `Seo.jsx` enhanced with og/twitter image width/height/alt and absolute-URL safety. `SITE.ogImage` → `/og/og-default.jpg`.
+- Removed the service-card hover/focus glow added in iteration 4 (reverted ServicesBento FamilyTile to `transition-colors hover:border-white/20`).
+- Verified: 3 signature pages render with correct mood + per-page OG; non-signature page (SEO) unchanged; home shows all 4 moods; zero horizontal overflow and zero console errors across checks.
+
 ## Backlog
 - P0: owner PDPA contact + retention; legal review; set SHOW_DEMO_CONTENT=false + APP_ENV=production at launch; prerendering for static HTML.
 - P1: approved case-study detail pages; real testimonials; first Insights articles; GA4 + consent.

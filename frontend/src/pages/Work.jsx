@@ -30,7 +30,7 @@ export default function Work() {
   const list = publicProjects();
   return (
     <>
-      <Seo title="Work | Client projects — Zavro Solutions" description="Case studies from Zavro Solutions: website, SEO, social and automation work for UMI Spices, Feni Electrical and SGSA Construction in Singapore." path="/work" crumbs={[{ to: "/", label: "Home" }, { to: "/work", label: "Work" }]} />
+      <Seo title="Work | Client projects — Zavro Solutions" description="Case studies from Zavro Solutions: website, SEO, social and automation work for UMI Spices, Feni Electrical and SGSA Construction in Singapore." path="/work" image="/og/og-work.jpg" crumbs={[{ to: "/", label: "Home" }, { to: "/work", label: "Work" }]} />
       <section className="px-5 pb-12 pt-28 sm:px-8 sm:pt-36" data-testid="work-page">
         <div className="mx-auto max-w-[1240px]">
           <Breadcrumbs items={[{ to: "/", label: "Home" }, { to: "/work", label: "Work" }]} />

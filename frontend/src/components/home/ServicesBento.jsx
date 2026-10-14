@@ -9,7 +9,7 @@ const AI_TASKS = ["Triage incoming enquiries", "Update the CRM automatically", "
 function FamilyTile({ fam, className = "", delay = 0 }) {
   const list = servicesByFamily(fam.id);
   return (
-    <Reveal delay={delay} className={`glass group relative flex flex-col justify-between overflow-hidden rounded-[20px] p-6 transition-[border-color,box-shadow] duration-500 hover:border-z-cyan/30 hover:shadow-[0_24px_70px_-30px_rgba(0,229,255,0.5)] focus-within:border-z-cyan/40 focus-within:shadow-[0_24px_70px_-30px_rgba(0,229,255,0.5)] sm:p-8 ${className}`}>
+    <Reveal delay={delay} className={`glass group relative flex flex-col justify-between overflow-hidden rounded-[20px] p-6 transition-colors duration-500 hover:border-white/20 sm:p-8 ${className}`}>
       <div>
         <p className="font-mono text-xs uppercase tracking-widest text-z-muted">{fam.code} · Family</p>
         <h3 className="mt-4 font-display text-2xl leading-tight">{fam.label}</h3>

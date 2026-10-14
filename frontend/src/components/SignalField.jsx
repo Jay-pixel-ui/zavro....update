@@ -34,12 +34,16 @@ export default function SignalField() {
 
     const mouse = { x: -9999, y: -9999, cx: -9999, cy: -9999, active: false };
 
-    const RIBBON_COLORS = [
-      [0, 229, 255], // cyan
-      [94, 168, 255], // sky blue
-      [185, 140, 255], // lilac/purple
-      [255, 184, 0], // gold
-    ];
+    // Per-section mood palettes (4 ribbon colours each). Ribbons lerp toward the
+    // palette of the section currently in view, so each area feels bespoke.
+    const MOODS = {
+      default: [[0, 229, 255], [94, 168, 255], [185, 140, 255], [255, 184, 0]],
+      ai: [[0, 229, 255], [255, 184, 0], [94, 168, 255], [0, 229, 255]],
+      build: [[0, 229, 255], [94, 168, 255], [30, 144, 255], [94, 168, 255]],
+      growth: [[185, 140, 255], [94, 168, 255], [0, 229, 255], [185, 140, 255]],
+      strategy: [[255, 184, 0], [185, 140, 255], [94, 168, 255], [255, 184, 0]],
+    };
+    let target = MOODS.default;
 
     const build = () => {
       w = window.innerWidth;
@@ -54,9 +58,10 @@ export default function SignalField() {
       // Flowing ribbons
       const ribbonCount = mobile ? 3 : 5;
       ribbons = Array.from({ length: ribbonCount }, (_, i) => {
-        const color = RIBBON_COLORS[i % RIBBON_COLORS.length];
+        const color = target[i % target.length].slice();
         return {
           color,
+          idx: i,
           yBase: h * (0.18 + 0.64 * (i / (ribbonCount - 1 || 1))),
           amp: h * (mobile ? 0.05 : 0.07) * (0.7 + Math.random() * 0.6),
           freq: (0.6 + Math.random() * 0.5) / Math.max(w, 1) * Math.PI * 2,
@@ -177,6 +182,14 @@ export default function SignalField() {
 
     const step = () => {
       t += 1;
+      // gently lerp each ribbon's colour toward the current section mood
+      for (let i = 0; i < ribbons.length; i += 1) {
+        const rb = ribbons[i];
+        const tgt = target[rb.idx % target.length];
+        rb.color[0] += (tgt[0] - rb.color[0]) * 0.02;
+        rb.color[1] += (tgt[1] - rb.color[1]) * 0.02;
+        rb.color[2] += (tgt[2] - rb.color[2]) * 0.02;
+      }
       for (let i = 0; i < particles.length; i += 1) {
         const p = particles[i];
         p.x += p.vx;
@@ -226,6 +239,38 @@ export default function SignalField() {
     window.addEventListener("resize", onResize);
     window.addEventListener("scroll", onScroll, { passive: true });
 
+    // Watch sections tagged with data-mood; shift ribbon palette toward the
+    // mood of whichever tagged section is most prominent in the viewport.
+    const observed = new WeakSet();
+    const ratios = new Map();
+    let moodObserver = null;
+    let rescanId = null;
+    const applyMood = () => {
+      let best = null;
+      let bestRatio = 0;
+      ratios.forEach((ratio, el) => {
+        if (ratio > bestRatio) { bestRatio = ratio; best = el; }
+      });
+      const name = best && best.dataset.mood;
+      target = MOODS[name] || MOODS.default;
+    };
+    if ("IntersectionObserver" in window) {
+      moodObserver = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) ratios.set(e.target, e.intersectionRatio);
+          else ratios.delete(e.target);
+        });
+        applyMood();
+      }, { threshold: [0, 0.25, 0.5, 0.75], rootMargin: "-20% 0px -20% 0px" });
+      const scan = () => {
+        document.querySelectorAll("[data-mood]").forEach((el) => {
+          if (!observed.has(el)) { observed.add(el); moodObserver.observe(el); }
+        });
+      };
+      scan();
+      rescanId = window.setInterval(scan, 1200); // pick up sections added on route change
+    }
+
     if (reduced) {
       render();
     } else {
@@ -240,6 +285,8 @@ export default function SignalField() {
     return () => {
       stop();
       clearTimeout(resizeTimer);
+      if (rescanId) window.clearInterval(rescanId);
+      if (moodObserver) moodObserver.disconnect();
       window.removeEventListener("resize", onResize);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("pointermove", onMove);

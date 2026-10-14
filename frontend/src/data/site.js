@@ -14,7 +14,7 @@ export const SITE = {
   logo: "/brand/zavro-logo-full.png",
   mark: "/brand/zs-mark.webp",
   lockup: "/brand/zavro-lockup.webp",
-  ogImage: "/brand/og-default.jpg",
+  ogImage: "/og/og-default.jpg",
 };
 
 export const PRODUCTION_HOSTS = ["www.zavrosolutions.site", "zavrosolutions.site"];

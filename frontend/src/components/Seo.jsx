@@ -36,7 +36,7 @@ const crumbLd = (crumbs) => ({
 export default function Seo({ title, description, path = "/", type = "website", jsonLd = [], crumbs, image = SITE.ogImage, noindex = false }) {
   const url = `${SITE.url}${path === "/" ? "/" : path}`;
   const ld = crumbs ? [...jsonLd, crumbLd(crumbs)] : jsonLd;
-  const img = `${SITE.url}${image}`;
+  const img = /^https?:\/\//.test(image) ? image : `${SITE.url}${image}`;
   return (
     <Helmet>
       <title>{title}</title>
@@ -49,11 +49,15 @@ export default function Seo({ title, description, path = "/", type = "website", 
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={img} />
+      <meta property="og:image:width" content="1264" />
+      <meta property="og:image:height" content="848" />
+      <meta property="og:image:alt" content={title} />
       <meta property="og:locale" content="en_SG" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={img} />
+      <meta name="twitter:image:alt" content={title} />
       {ld.map((d, i) => (
         <script key={i} type="application/ld+json">{JSON.stringify(d)}</script>
       ))}

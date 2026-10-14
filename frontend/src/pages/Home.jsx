@@ -68,14 +68,14 @@ export default function Home() {
         path="/"
         jsonLd={[ORG_LD, WEBSITE_LD]}
       />
-      <Hero />
+      <div data-mood="ai"><Hero /></div>
       <IntentRail />
       <ClientRail />
       <SignalPath />
       <Marquee />
-      <ServicesBento />
+      <div data-mood="build"><ServicesBento /></div>
 
-      <section className="px-5 py-24 sm:px-8 sm:py-32" data-testid="home-work-section">
+      <section className="px-5 py-24 sm:px-8 sm:py-32" data-testid="home-work-section" data-mood="growth">
         <div className="mx-auto max-w-[1240px]">
           <div className="mb-12 grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
             <div>
@@ -93,7 +93,7 @@ export default function Home() {
 
       <SampleTestimonials />
 
-      <section className="bg-z-navy px-5 py-24 sm:px-8 sm:py-32" data-testid="home-process-section">
+      <section className="bg-z-navy px-5 py-24 sm:px-8 sm:py-32" data-testid="home-process-section" data-mood="strategy">
         <div className="mx-auto max-w-[1240px]">
           <Eyebrow>How we work</Eyebrow>
           <Headline lines={[["Five stages, ", { g: "scaled to the project." }]]} className="mt-6 max-w-3xl font-display text-[clamp(2rem,4.6vw,3.6rem)] font-medium leading-[1.05]" />

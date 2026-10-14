@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import { Headline, Reveal, Eyebrow } from "@/components/motion";
 import { Cta } from "@/components/Cta";
 import ServiceVisual from "@/components/ServiceVisuals";
+import ServiceSignature, { hasSignature } from "@/components/ServiceSignature";
 import Faq from "@/components/Faq";
 import { serviceBySlug } from "@/data/services";
 import { FAMILIES, SITE, waLink } from "@/data/site";
@@ -138,12 +139,44 @@ export default function ServicePage() {
   const { slug } = useParams();
   const s = serviceBySlug(slug);
   if (!s) return <NotFound />;
+  const sig = hasSignature(s.slug);
   const visual = <ServiceVisual kind={s.visual} label={`Illustrative diagram for ${s.short}`} />;
   const ld = [ORG_LD, { "@context": "https://schema.org", "@type": "Service", name: s.short, serviceType: s.short, description: s.description, url: `${SITE.url}/services/${s.slug}`, provider: { "@id": `${SITE.url}/#organization` }, areaServed: ["Singapore", "Worldwide (remote)"] }];
 
+  if (sig) {
+    return (
+      <div data-mood={s.family}>
+        <Seo title={s.title} description={s.description} path={`/services/${s.slug}`} image={s.ogImage} jsonLd={ld} crumbs={[{ to: "/", label: "Home" }, { to: "/services", label: "Services" }, { to: `/services/${s.slug}`, label: s.short }]} />
+        <section className="relative overflow-hidden px-5 pb-10 pt-28 sm:px-8 sm:pt-36" data-testid={`service-page-${s.slug}`}>
+          <div aria-hidden="true" className="grid-lines absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
+          <div className="relative mx-auto max-w-4xl"><HeroText s={s} /></div>
+        </section>
+        <ServiceSignature s={s} />
+        <Shell className="border-t border-white/10"><Audience s={s} /></Shell>
+        <Shell className="bg-z-navy"><Includes s={s} /></Shell>
+        <Shell><div className="max-w-2xl"><Approach s={s} /></div></Shell>
+        <Shell className="!pt-0"><Limits s={s} /></Shell>
+        <Shell className="!pt-0">
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <Eyebrow>Questions</Eyebrow>
+              <h2 className="mt-5 font-display text-[clamp(1.6rem,3.4vw,2.4rem)] font-medium">Frequently asked.</h2>
+            </div>
+            <Faq items={s.faqs} idPrefix={`faq-${s.slug}`} />
+          </div>
+        </Shell>
+        <Shell className="!pt-0">
+          <h2 className="mb-6 font-mono text-xs uppercase tracking-widest text-z-muted">Works well with</h2>
+          <Related s={s} />
+        </Shell>
+        <ServiceCta s={s} />
+      </div>
+    );
+  }
+
   return (
-    <>
-      <Seo title={s.title} description={s.description} path={`/services/${s.slug}`} jsonLd={ld} crumbs={[{ to: "/", label: "Home" }, { to: "/services", label: "Services" }, { to: `/services/${s.slug}`, label: s.short }]} />
+    <div data-mood={s.family}>
+      <Seo title={s.title} description={s.description} path={`/services/${s.slug}`} image={s.ogImage} jsonLd={ld} crumbs={[{ to: "/", label: "Home" }, { to: "/services", label: "Services" }, { to: `/services/${s.slug}`, label: s.short }]} />
       <section className="relative overflow-hidden px-5 pb-16 pt-28 sm:px-8 sm:pt-36" data-testid={`service-page-${s.slug}`}>
         <div aria-hidden="true" className="grid-lines absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent)]" />
         <div className={`relative mx-auto max-w-[1240px] ${s.layout === "split" ? "grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]" : ""}`}>
@@ -180,6 +213,6 @@ export default function ServicePage() {
         <Related s={s} />
       </Shell>
       <ServiceCta s={s} />
-    </>
+    </div>
   );
 }

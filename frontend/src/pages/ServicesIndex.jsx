@@ -49,7 +49,7 @@ function ProblemMap() {
 export default function ServicesIndex() {
   return (
     <>
-      <Seo title="Services | AI automation, web, SEO, GEO & branding — Zavro Solutions" description="Find the right service by the problem you need solved: get discovered, convert visitors, remove repetitive work, build a product or clarify the business." path="/services" crumbs={[{ to: "/", label: "Home" }, { to: "/services", label: "Services" }]} />
+      <Seo title="Services | AI automation, web, SEO, GEO & branding — Zavro Solutions" description="Find the right service by the problem you need solved: get discovered, convert visitors, remove repetitive work, build a product or clarify the business." path="/services" image="/og/og-services.jpg" crumbs={[{ to: "/", label: "Home" }, { to: "/services", label: "Services" }]} />
       <section className="relative px-5 pb-20 pt-28 sm:px-8 sm:pt-36" data-testid="services-index">
         <div className="mx-auto max-w-[1240px]">
           <Breadcrumbs items={[{ to: "/", label: "Home" }, { to: "/services", label: "Services" }]} />
