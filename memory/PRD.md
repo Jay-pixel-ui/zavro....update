@@ -17,6 +17,10 @@ React CRA + react-router + framer-motion + Lenis + react-helmet-async; FastAPI `
 - Backend validation, honeypot, rate limit, test-lead flagging, email notification (verified 202).
 - robots.txt, sitemap.xml, llms.txt, noindex on preview hosts, README, launch checklist, .env.example.
 
+## Implemented (2026-10-14, iteration 2)
+- Case-study pages /work/umi-spices, /work/feni-electrical, /work/sgsa-construction (context, delivered scope, approach, honest outcomes block, next case, CTA). Scope confirmed by owner; UMI Spices industry corrected to restaurant & catering after inspecting the live site. Owner's "growth within 2 weeks" claim NOT published (unmeasured, unapproved).
+- Two published Insights articles (author: Zavro Solutions team, 2026-10-14) with short-answer box, checklist, related services, BlogPosting JSON-LD. Sitemap now 25 URLs.
+
 ## Backlog
 - P0: owner PDPA contact + retention; legal review; set SHOW_DEMO_CONTENT=false + APP_ENV=production at launch; prerendering for static HTML.
 - P1: approved case-study detail pages; real testimonials; first Insights articles; GA4 + consent.

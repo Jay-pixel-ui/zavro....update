@@ -62,7 +62,7 @@ export default function Home() {
               <Headline lines={[["Client work, ", { g: "stated plainly." }]]} className="mt-6 font-display text-[clamp(2rem,4.6vw,3.6rem)] font-medium leading-[1.05]" />
             </div>
             <Reveal className="max-w-md text-z-body lg:justify-self-end">
-              These are businesses we have worked with, shown with their permission. Detailed case studies are published only once each client has confirmed the scope and any results.
+              These are businesses we've worked with, shown with their permission. Each case study describes what we delivered; results are published only once verified and approved by the client.
             </Reveal>
           </div>
           <ProjectList />

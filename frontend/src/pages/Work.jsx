@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Seo from "@/components/Seo";
@@ -29,13 +30,13 @@ export default function Work() {
   const list = publicProjects();
   return (
     <>
-      <Seo title="Work | Client projects — Zavro Solutions" description="Client work from Zavro Solutions, shown with permission: UMI Spices, Feni Electrical and SGSA Construction. Case studies are published once scope and results are confirmed." path="/work" crumbs={[{ to: "/", label: "Home" }, { to: "/work", label: "Work" }]} />
+      <Seo title="Work | Client projects — Zavro Solutions" description="Case studies from Zavro Solutions: website, SEO, social and automation work for UMI Spices, Feni Electrical and SGSA Construction in Singapore." path="/work" crumbs={[{ to: "/", label: "Home" }, { to: "/work", label: "Work" }]} />
       <section className="px-5 pb-12 pt-28 sm:px-8 sm:pt-36" data-testid="work-page">
         <div className="mx-auto max-w-[1240px]">
           <Breadcrumbs items={[{ to: "/", label: "Home" }, { to: "/work", label: "Work" }]} />
           <Eyebrow>Work</Eyebrow>
           <Headline as="h1" onMount lines={[["Real clients."], ["Shown ", { g: "honestly." }]]} className="mt-6 font-display text-[clamp(2.4rem,7vw,5.6rem)] font-medium leading-[1.02]" />
-          <Reveal delay={0.3} className="mt-6 max-w-2xl text-lg text-z-body">We'd rather show less than invent more. Each client below is shown with permission, with a link to their live website. Full case studies follow once each client has confirmed the scope and any results.</Reveal>
+          <Reveal delay={0.3} className="mt-6 max-w-2xl text-lg text-z-body">We'd rather show less than invent more. Each client below is shown with permission, with a case study describing what we delivered. Results and quotes are published only once they've been verified and approved by the client.</Reveal>
         </div>
       </section>
 
@@ -43,17 +44,18 @@ export default function Work() {
         <div className="mx-auto max-w-[1240px] space-y-20 sm:space-y-28">
           {list.map((p, i) => (
             <motion.article key={p.slug} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.8, ease: EASE }} className={`grid items-center gap-8 lg:grid-cols-12 lg:gap-12`} data-testid={`work-item-${p.slug}`}>
-              <a href={p.clientDomain} target="_blank" rel="noopener noreferrer" data-cursor="view" className={`group block lg:col-span-7 ${i % 2 ? "lg:order-2" : ""}`} aria-label={`Visit ${p.clientName} website (opens in a new tab)`}>
+              <Link to={`/work/${p.slug}`} data-cursor="view" className={`group block lg:col-span-7 ${i % 2 ? "lg:order-2" : ""}`} aria-label={`Read the ${p.clientName} case study`} data-testid={`work-shot-${p.slug}`}>
                 <Shot p={p} />
-              </a>
+              </Link>
               <div className={`lg:col-span-5 ${i % 2 ? "lg:order-1" : ""}`}>
                 <p className="font-mono text-xs text-z-cyan">0{i + 1} · {p.industry}</p>
                 <h2 className="mt-4 font-display text-[clamp(2rem,4.4vw,3.4rem)] font-medium leading-none">{p.clientName}</h2>
                 <dl className="mt-8 divide-y divide-white/10 border-y border-white/10 text-[15px]">
                   <div className="flex justify-between gap-6 py-3"><dt className="text-z-muted">Industry</dt><dd className="text-right text-white">{p.industry}</dd></div>
                   <div className="flex justify-between gap-6 py-3"><dt className="text-z-muted">Website</dt><dd><a href={p.clientDomain} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-z-eyebrow link-u" data-testid={`work-link-${p.slug}`}>{hostOf(p.clientDomain)}<ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a></dd></div>
-                  <div className="flex justify-between gap-6 py-3"><dt className="text-z-muted">Case study</dt><dd className="text-right text-z-body">In preparation with the client</dd></div>
+                  <div className="flex justify-between gap-6 py-3"><dt className="text-z-muted">Delivered</dt><dd className="text-right text-z-body">{p.scopeDelivered.map((x) => x.t).slice(0, 3).join(" · ")}</dd></div>
                 </dl>
+                <Link to={`/work/${p.slug}`} className="mt-6 inline-flex min-h-[44px] items-center gap-2 font-mono text-xs uppercase tracking-widest text-z-eyebrow link-u" data-testid={`work-case-link-${p.slug}`}>Read the case study →</Link>
                 {p.testimonialApproved && p.testimonialQuote && <blockquote className="mt-6 text-z-body">“{p.testimonialQuote}” — {p.testimonialAttribution}</blockquote>}
               </div>
             </motion.article>
