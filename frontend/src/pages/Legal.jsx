@@ -40,6 +40,7 @@ export function Privacy() {
       <section><h2>Analytics and cookies</h2><p className="mt-3">No analytics or advertising cookies are currently in use. If we add analytics, we will update this notice and request consent where required. Your browser's session storage is used to remember campaign parameters and whether you've seen the intro animation.</p></section>
       <section><h2>Retention</h2><p className="mt-3">[Owner to confirm: retention period for enquiries that do not become clients, and for client records.]</p></section>
       <section><h2>Your rights</h2><p className="mt-3">Under Singapore's Personal Data Protection Act (PDPA) you may request access to, or correction of, personal data we hold about you, and withdraw consent. Send requests to {SITE.email}. [Owner to confirm: designated data protection contact.]</p></section>
+      <section><h2>Visitors outside Singapore</h2><p className="mt-3">We work with clients worldwide. If you are in another country, local data-protection law (for example the GDPR in the EU and UK) may also give you rights over your personal data. Contact {SITE.email} and we will respond. [Owner/legal review required.]</p></section>
       <section><h2>Security</h2><p className="mt-3">We take reasonable steps to protect your data, but no online transmission or storage is completely secure.</p></section>
     </LegalShell>
   );

@@ -63,8 +63,8 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="Zavro Solutions | Digital growth & IT solutions, Singapore"
-        description="Singapore-based team connecting websites, SEO, GEO, digital marketing, custom software and AI automation for SMEs and founders — in Singapore and remotely worldwide."
+        title="Zavro Solutions | Digital growth & IT solutions worldwide"
+        description="Websites, SEO, GEO, digital marketing, custom software and AI automation for SMEs and founders worldwide — delivered remotely by a team headquartered in Singapore."
         path="/"
         jsonLd={[ORG_LD, WEBSITE_LD]}
       />

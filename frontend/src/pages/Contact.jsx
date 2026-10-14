@@ -16,7 +16,7 @@ export default function Contact() {
   const ld = [{ "@context": "https://schema.org", "@type": "ContactPage", name: "Contact Zavro Solutions", url: `${SITE.url}/contact`, about: { "@id": `${SITE.url}/#organization` } }];
   return (
     <>
-      <Seo title="Contact | Discuss a project — Zavro Solutions" description="Discuss a project with Zavro Solutions. Send an enquiry, email ceo@zavrosolutions.site or WhatsApp +65 8980 5150. Singapore-based, working worldwide." path="/contact" jsonLd={ld} crumbs={[{ to: "/", label: "Home" }, { to: "/contact", label: "Contact" }]} />
+      <Seo title="Contact | Discuss a project — Zavro Solutions" description="Discuss a project with Zavro Solutions. Send an enquiry, email ceo@zavrosolutions.site or WhatsApp +65 8980 5150. Working worldwide, headquartered in Singapore." path="/contact" jsonLd={ld} crumbs={[{ to: "/", label: "Home" }, { to: "/contact", label: "Contact" }]} />
       <section className="relative overflow-hidden px-5 pb-24 pt-28 sm:px-8 sm:pt-36" data-testid="contact-page">
         <div aria-hidden="true" className="absolute right-0 top-0 h-[600px] w-[600px] rounded-full bg-[radial-gradient(closest-side,rgba(0,229,255,0.10),transparent)]" />
         <div className="relative mx-auto grid max-w-[1240px] gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
@@ -44,7 +44,7 @@ export default function Contact() {
                 <p className="mt-2 text-white">{SITE.phoneDisplay}</p>
               </a>
             </div>
-            <p className="mt-6 text-sm text-z-muted">{SITE.reach}. No public office address.</p>
+            <p className="mt-6 text-sm text-z-muted">{SITE.reach}. Remote-first, across time zones. No public office address.</p>
           </div>
           <Reveal className="glass-strong h-fit rounded-[24px] p-5 sm:p-9">
             <h2 className="mb-6 font-display text-xl">Project enquiry</h2>

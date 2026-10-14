@@ -12,7 +12,7 @@ export default function Footer() {
             <div className="overflow-hidden rounded-card border border-white/5 bg-[#03060d]">
               <img src={SITE.lockup} alt="Zavro Solutions Pte Ltd — Digital Growth & IT Solutions logo with Singapore skyline" width="994" height="630" loading="lazy" className="h-auto w-full" />
             </div>
-            <p className="mt-6 max-w-sm text-[15px] text-z-body">A Singapore-based team connecting websites, search, marketing, software and AI automation — working with clients in Singapore and remotely worldwide.</p>
+            <p className="mt-6 max-w-sm text-[15px] text-z-body">A digital growth and IT team working with clients worldwide — websites, search, marketing, software and AI automation, delivered remotely from our Singapore headquarters.</p>
             <p className="mt-4 font-mono text-xs uppercase tracking-widest text-z-muted">{SITE.legalName} · UEN {SITE.uen}</p>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">

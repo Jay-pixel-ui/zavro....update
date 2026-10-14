@@ -14,7 +14,9 @@ export const ORG_LD = {
   description: SITE.description,
   identifier: { "@type": "PropertyValue", propertyID: "UEN", value: SITE.uen },
   address: { "@type": "PostalAddress", addressCountry: "SG" },
-  areaServed: [{ "@type": "Country", name: "Singapore" }, "Worldwide (remote)"],
+  areaServed: "Worldwide",
+  knowsLanguage: ["en"],
+  location: { "@type": "Place", name: "Singapore", address: { "@type": "PostalAddress", addressCountry: "SG" } },
   contactPoint: { "@type": "ContactPoint", contactType: "sales", email: SITE.email, telephone: SITE.phoneE164, availableLanguage: ["en"] },
 };
 
@@ -52,7 +54,9 @@ export default function Seo({ title, description, path = "/", type = "website", 
       <meta property="og:image:width" content="1264" />
       <meta property="og:image:height" content="848" />
       <meta property="og:image:alt" content={title} />
-      <meta property="og:locale" content="en_SG" />
+      <meta property="og:locale" content="en" />
+      <link rel="alternate" hreflang="en" href={url} />
+      <link rel="alternate" hreflang="x-default" href={url} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />

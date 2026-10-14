@@ -19,7 +19,7 @@ export default function Hero() {
           </motion.p>
           <Headline as="h1" onMount testid="hero-heading" lines={[["Growth isn't luck."], ["It's ", { g: "engineering." }]]} className="mt-7 font-display text-[clamp(2.5rem,7.2vw,5.9rem)] font-medium leading-[1.02]" />
           <motion.p {...up(0.45)} className="mt-7 max-w-[520px] text-[17px] leading-relaxed text-z-body sm:text-lg">
-            A Singapore-based digital growth and IT team. We connect your website, search, marketing, software and AI automation into one system — for SMEs and founders, locally and worldwide.
+            A digital growth and IT team working worldwide. We connect your website, search, marketing, software and AI automation into one system — for SMEs and founders, wherever you are.
           </motion.p>
           <motion.div {...up(0.6)} className="mt-9 flex flex-wrap gap-3">
             <Cta to="/contact" testid="hero-primary-cta" event="primary_cta_click">Discuss a project</Cta>

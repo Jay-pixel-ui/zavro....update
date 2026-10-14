@@ -56,7 +56,7 @@ export const INSIGHTS = [
     metaTitle: "GEO explained: make your business understandable to AI | Zavro Solutions",
     published: true,
     title: "GEO explained: how to make your business understandable to AI search",
-    description: "GEO in plain English for Singapore businesses: how AI answer tools find content, what helps them understand you, what to avoid and how to measure it.",
+    description: "GEO in plain English for businesses anywhere: how AI answer tools find content, what helps them understand you, what to avoid and how to measure it.",
     category: "Search & GEO",
     author: "Zavro Solutions team",
     publishedAt: "2026-10-14",

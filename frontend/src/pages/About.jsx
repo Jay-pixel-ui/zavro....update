@@ -23,12 +23,12 @@ function Flow() {
   );
 }
 
-const FACTS = [["Legal name", SITE.legalName], ["UEN", SITE.uen], ["Based in", "Singapore"], ["Works with", "Clients in Singapore and remotely worldwide"], ["Email", SITE.email], ["WhatsApp", SITE.phoneDisplay]];
+const FACTS = [["Legal name", SITE.legalName], ["UEN", SITE.uen], ["Headquarters", "Singapore"], ["Works with", "Clients worldwide, remotely, across time zones"], ["Email", SITE.email], ["WhatsApp", SITE.phoneDisplay]];
 
 export default function About() {
   return (
     <>
-      <Seo title="About | A Singapore digital growth & IT studio — Zavro Solutions" description="About Zavro Solutions Pte. Ltd.: a Singapore-based team joining growth and technology — websites, search, marketing, software and AI automation." path="/about" jsonLd={[ORG_LD]} crumbs={[{ to: "/", label: "Home" }, { to: "/about", label: "About" }]} />
+      <Seo title="About | A global digital growth & IT studio — Zavro Solutions" description="About Zavro Solutions Pte. Ltd.: a Singapore-headquartered team working worldwide, joining growth and technology — websites, search, marketing, software and AI automation." path="/about" jsonLd={[ORG_LD]} crumbs={[{ to: "/", label: "Home" }, { to: "/about", label: "About" }]} />
       <section className="px-5 pb-20 pt-28 sm:px-8 sm:pt-36" data-testid="about-page">
         <div className="mx-auto grid max-w-[1240px] gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
           <div>
@@ -48,7 +48,7 @@ export default function About() {
             <img src={SITE.lockup} alt="Zavro Solutions lockup: ZS monogram above the Singapore skyline" width="994" height="630" loading="lazy" className="h-auto w-full" />
             <div className="p-6 sm:p-10">
               <p className="eyebrow">The mark</p>
-              <p className="mt-4 text-z-body">Blue and gold for the two sides of the work — systems and growth. The Singapore skyline beneath for where we're based; the work itself travels.</p>
+              <p className="mt-4 text-z-body">Blue and gold for the two sides of the work — systems and growth. The Singapore skyline beneath for where we're headquartered; the work itself travels worldwide.</p>
               <p className="mt-6 font-display text-xl text-white">{SITE.tagline}</p>
             </div>
           </div>

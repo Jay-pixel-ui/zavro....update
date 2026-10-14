@@ -8,9 +8,9 @@ export const SITE = {
   phoneE164: "+6589805150",
   wa: "6589805150",
   tagline: "Engineered Growth. Quietly Inevitable.",
-  reach: "Singapore-based · Working worldwide",
+  reach: "Working worldwide · Headquartered in Singapore",
   description:
-    "Zavro Solutions is a Singapore-based team connecting websites, search, marketing, software and AI automation for SMEs and founders, in Singapore and remotely worldwide.",
+    "Zavro Solutions is a digital growth and IT team working with SMEs and founders worldwide — websites, search, marketing, software and AI automation, delivered remotely from our Singapore headquarters.",
   logo: "/brand/zavro-logo-full.png",
   mark: "/brand/zs-mark.webp",
   lockup: "/brand/zavro-lockup.webp",
