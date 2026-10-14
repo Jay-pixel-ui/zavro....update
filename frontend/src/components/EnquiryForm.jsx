@@ -7,7 +7,7 @@ import { SITE, mailLink, waLink } from "@/data/site";
 import { readUtm, track } from "@/lib/analytics";
 import { EASE } from "@/components/motion";
 
-const API = process.env.REACT_APP_BACKEND_URL;
+const API = process.env.REACT_APP_BACKEND_URL || ""; // same-origin /api by default
 const AREAS = [...SERVICES.map((s) => ({ v: s.slug, l: s.short })), { v: "growth-audit", l: "Growth audit (scope agreed first)" }, { v: "not-sure", l: "Not sure yet" }];
 const TIMING = ["As soon as possible", "Within 1–3 months", "3–6 months", "Just exploring"];
 const CONTACT = ["Email", "WhatsApp", "Phone call"];
@@ -76,7 +76,6 @@ export default function EnquiryForm({ source = "contact" }) {
       document.getElementById(Object.keys(errs)[0])?.focus();
       return;
     }
-    if (!API) { setStatus("error"); return; }
     setStatus("submitting");
     try {
       const res = await fetch(`${API}/api/enquiries`, {
