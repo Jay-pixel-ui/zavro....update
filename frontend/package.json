@@ -85,13 +85,12 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",
     "@craco/craco": "7.1.0",
-    "@emergentbase/overlay": "https://assets.emergent.sh/npm/emergentbase-overlay-0.1.31.tgz",
-    "@emergentbase/visual-edits": "https://assets.emergent.sh/npm/emergentbase-visual-edits-1.0.13.tgz",
     "@eslint/js": "9.23.0",
-    "esbuild": "^0.25.0",
     "@types/lodash": "4.17.24",
+    "ajv": "^8.17.1",
     "autoprefixer": "10.4.20",
     "dotenv": "16.4.5",
+    "esbuild": "^0.25.0",
     "eslint": "9.23.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
@@ -100,6 +99,10 @@
     "globals": "15.15.0",
     "postcss": "8.5.28",
     "tailwindcss": "3.4.17"
+  },
+  "optionalDependencies": {
+    "@emergentbase/overlay": "https://assets.emergent.sh/npm/emergentbase-overlay-0.1.31.tgz",
+    "@emergentbase/visual-edits": "https://assets.emergent.sh/npm/emergentbase-visual-edits-1.0.13.tgz"
   },
   "resolutions": {
     "react-router": "7.18.4",
