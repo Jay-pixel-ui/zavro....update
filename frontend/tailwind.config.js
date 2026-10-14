@@ -24,9 +24,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        display: ["Unbounded", "system-ui", "sans-serif"],
-        sans: ["Outfit", "system-ui", "sans-serif"],
-        mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
+        display: ['"Unbounded Variable"', "Unbounded", "system-ui", "sans-serif"],
+        sans: ['"Outfit Variable"', "Outfit", "system-ui", "sans-serif"],
+        mono: ['"JetBrains Mono Variable"', '"JetBrains Mono"', "ui-monospace", "monospace"],
       },
       borderRadius: { ctl: "12px", card: "16px" },
       transitionTimingFunction: { signal: "cubic-bezier(.2,.8,.2,1)" },

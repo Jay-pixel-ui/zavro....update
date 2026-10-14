@@ -13,6 +13,7 @@ export const SITE = {
     "Zavro Solutions is a digital growth and IT team working with SMEs and founders worldwide — websites, search, marketing, software and AI automation, delivered remotely from our Singapore headquarters.",
   logo: "/brand/zavro-logo-full.png",
   mark: "/brand/zs-mark.webp",
+  markSmall: "/brand/zs-mark-sm.webp",
   lockup: "/brand/zavro-lockup.webp",
   ogImage: "/og/og-default.jpg",
 };

@@ -1,6 +1,22 @@
+/* Self-hosted variable fonts (latin subsets load by unicode-range); no third-party font requests. */
+@import "@fontsource-variable/unbounded";
+@import "@fontsource-variable/outfit";
+@import "@fontsource-variable/jetbrains-mono";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Above-the-fold entrance animations run in CSS so the hero paints before the JS bundle
+   arrives (prerendered HTML). Below-the-fold reveals stay in framer-motion. */
+@keyframes zv-line { from { transform: translateY(110%); } to { transform: translateY(0); } }
+@keyframes zv-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+html.no-intro .intro-loader { display: none !important; }
+.css-line { animation: zv-line 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes zv-pop { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+.css-pop { animation: zv-pop 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s both; }
+.css-rise { animation: zv-rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@media (prefers-reduced-motion: reduce) { .css-line, .css-rise, .css-pop { animation: none; } }
 
 :root {
   --bg: #02040a;
@@ -22,7 +38,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: #cbd5e1;
-  font-family: "Outfit", system-ui, sans-serif;
+  font-family: "Outfit Variable", "Outfit", system-ui, sans-serif;
   font-size: 17px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -47,7 +63,7 @@ h1, h2, h3, h4 { color: #fff; }
 @keyframes sweep { from { background-position: 100% 0; } to { background-position: 0 0; } }
 
 .eyebrow {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "JetBrains Mono Variable", "JetBrains Mono", monospace;
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;

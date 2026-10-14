@@ -67,10 +67,19 @@ function splitHoisted(html) {
   return m ? { hoisted: m[0], body: html.slice(m[0].length) } : { hoisted: "", body: html };
 }
 
+// Preload the above-the-fold latin font files (hashed names come from the CRA build).
+const mediaDir = path.join(buildDir, "static", "media");
+const fontPreloads = fs.existsSync(mediaDir)
+  ? fs.readdirSync(mediaDir)
+      .filter((f) => /^(unbounded|outfit)-latin-wght-normal\..*\.woff2$/.test(f))
+      .map((f) => `<link rel="preload" href="/static/media/${f}" as="font" type="font/woff2" crossorigin>`)
+      .join("\n    ")
+  : "";
+
 function compose(page, { notFound = false } = {}) {
   const { hoisted, body } = splitHoisted(page.html);
   let out = strip(template);
-  out = out.replace("</head>", `    ${hoisted}\n  </head>`);
+  out = out.replace("</head>", `    ${fontPreloads}\n    ${hoisted}\n  </head>`);
   out = out.replace('<div id="root"></div>', `<div id="root" data-prerendered="${notFound ? "false" : "true"}">${body}</div>`);
   return out;
 }

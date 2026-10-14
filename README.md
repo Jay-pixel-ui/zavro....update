@@ -15,7 +15,7 @@ API: `GET /api/health`, `POST /api/enquiries`.
 - SEO files: `frontend/public/robots.txt`, `sitemap.xml` (update when routes change), `llms.txt` (optional).
 
 ## Design tokens
-Colours in `tailwind.config.js` under `z.*` (bg #02040A, navy, surface, cyan #00E5FF, blue, gold #FFB800, ink, body #CBD5E1, muted #94A3B8, eyebrow #67E8F9). Gradients/glass in `src/index.css`. Fonts: Unbounded (display), Outfit (body), JetBrains Mono (labels). Motion ease `cubic-bezier(.2,.8,.2,1)`; framer-motion + Lenis; all motion respects `prefers-reduced-motion`. Custom cursor only on fine pointers.
+Colours in `tailwind.config.js` under `z.*` (bg #02040A, navy, surface, cyan #00E5FF, blue, gold #FFB800, ink, body #CBD5E1, muted #94A3B8, eyebrow #67E8F9). Gradients/glass in `src/index.css`. Fonts: Unbounded (display), Outfit (body), JetBrains Mono (labels) — self-hosted via @fontsource (imported in `src/index.css`, latin files preloaded by the prerender step); no Google Fonts request. Motion ease `cubic-bezier(.2,.8,.2,1)`; framer-motion + Lenis; all motion respects `prefers-reduced-motion`. Custom cursor only on fine pointers.
 
 ## Environment variables
 See `frontend/.env.example` and `backend/.env.example`.
@@ -32,6 +32,7 @@ Allowed: all search engines, OAI-SearchBot, ChatGPT-User, PerplexityBot, Perplex
 
 ## Known limitations
 - Prerendering: `npm run build` runs `craco build` then `scripts/prerender.mjs`, which renders every route to static HTML (title, description, canonical, JSON-LD and body text), then hydrates in the browser. It also regenerates `sitemap.xml`, `llms.txt` and `llms-full.txt` from the same data files the pages use. Add a service, project or published article and the next build picks it up. Needs `esbuild` (a devDependency). The prerender bundle treats the build as the production host, so preview hosts must be noindexed by the host (Vercel does this on preview deployments).
+- Hero entrance animations are CSS keyframes (`.css-line`, `.css-rise`, `.css-pop`) so the hero paints before the JS bundle; below-the-fold reveals use framer-motion. The intro splash is desktop-only and part of the prerendered HTML (hidden pre-paint for returning visitors by the inline script in `public/index.html`).
 - In-memory rate limiting resets on restart and is per-instance.
 
 See `docs/launch-checklist.md`.

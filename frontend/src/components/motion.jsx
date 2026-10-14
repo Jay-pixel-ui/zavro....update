@@ -13,8 +13,21 @@ const renderSeg = (s, j) =>
 
 // Masked line-by-line reveal. Observer sits on the unclipped heading; clipping is on inner line wrappers.
 export function Headline({ lines, as = "h2", className = "", onMount = false, testid }) {
+  if (onMount) {
+    // Mount-time headlines (hero) animate with CSS so they paint before hydration.
+    const Plain = as;
+    return (
+      <Plain className={className} data-testid={testid}>
+        {lines.map((segs, i) => (
+          <span key={i} className="block overflow-hidden pb-[0.12em] -mb-[0.12em]">
+            <span className="css-line block" style={{ animationDelay: `${0.08 + i * 0.09}s` }}>{segs.map(renderSeg)}</span>
+          </span>
+        ))}
+      </Plain>
+    );
+  }
   const Tag = motion[as];
-  const trigger = onMount ? { animate: "show" } : { whileInView: "show", viewport: { once: true, amount: 0.1 } };
+  const trigger = { whileInView: "show", viewport: { once: true, amount: 0.1 } };
   return (
     <Tag className={className} initial="hidden" {...trigger} data-testid={testid}>
       {lines.map((segs, i) => (
