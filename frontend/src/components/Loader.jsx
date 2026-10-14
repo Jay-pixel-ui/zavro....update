@@ -37,7 +37,7 @@ export default function Loader() {
               <motion.circle cx="100" cy="100" r="78" fill="none" stroke="#FFB800" strokeWidth="0.6" strokeOpacity=".6" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.1, ease: EASE, delay: 0.2 }} />
               <motion.line x1="10" x2="190" y1="100" y2="100" stroke="#00E5FF" strokeOpacity=".5" initial={{ y: -80 }} animate={{ y: 80 }} transition={{ duration: 1.2, ease: "easeInOut" }} />
             </svg>
-            <motion.img src={SITE.mark} alt="" width="120" height="45" className="relative w-[120px]" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, ease: EASE }} />
+            <motion.img src={SITE.mark} alt="" width="120" height="43" className="relative w-[120px]" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, ease: EASE }} />
           </div>
           <p className="eyebrow mt-8">Initializing intelligent systems</p>
           <button type="button" onClick={() => setShow(false)} data-testid="intro-skip-button" className="mt-6 min-h-[44px] rounded-full px-5 font-mono text-xs uppercase tracking-widest text-z-body hover:text-white">

@@ -10,7 +10,7 @@ import { EASE } from "@/components/motion";
 function Brand() {
   return (
     <Link to="/" className="flex items-center gap-3" aria-label="Zavro Solutions home" data-testid="nav-brand-link">
-      <img src={SITE.mark} alt="" width="56" height="21" className="h-[21px] w-[56px] rounded-[3px]" />
+      <img src={SITE.mark} alt="" width="56" height="20" className="h-auto w-[56px]" />
       <span className="font-display text-[15px] font-semibold tracking-[0.08em] text-white">ZAVRO</span>
     </Link>
   );

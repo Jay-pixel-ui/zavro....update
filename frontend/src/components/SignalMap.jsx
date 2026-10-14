@@ -60,7 +60,7 @@ export default function SignalMap() {
         <div className="absolute left-1/2 top-1/2 w-[38%] -translate-x-1/2 -translate-y-1/2">
         <motion.div className="flex items-center justify-center" style={interactive ? { x: px, y: py } : undefined}>
           <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: EASE, delay: 0.3 }} className="relative w-full rounded-[22px] border border-z-cyan/25 bg-[#03060d] p-[9%] shadow-[0_0_80px_-10px_rgba(0,229,255,0.45)]">
-            <img src={SITE.mark} alt="Zavro Solutions ZS monogram" width="476" height="177" className="h-auto w-full" />
+            <img src={SITE.mark} alt="Zavro Solutions ZS monogram" width="924" height="334" className="h-auto w-full" />
             <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.2em] text-z-muted">core</span>
           </motion.div>
         </motion.div>
