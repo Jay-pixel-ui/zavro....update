@@ -17,6 +17,18 @@ export const SITE = {
   ogImage: "/og/og-default.jpg",
 };
 
+// Markets in priority order. Used for schema areaServed, the About page and llms.txt.
+export const MARKETS = [
+  { name: "Singapore", iso: "SG", note: "Headquarters" },
+  { name: "United States", iso: "US" },
+  { name: "Canada", iso: "CA" },
+  { name: "United Kingdom", iso: "GB" },
+  { name: "European Union", iso: "EU", region: true },
+  { name: "Australia", iso: "AU" },
+  { name: "New Zealand", iso: "NZ" },
+];
+export const MARKETS_LINE = "Singapore · North America · United Kingdom & Europe · Australia & New Zealand";
+
 export const PRODUCTION_HOSTS = ["www.zavrosolutions.site", "zavrosolutions.site"];
 export const IS_PRODUCTION =
   (typeof window !== "undefined"

@@ -6,9 +6,9 @@ import { AppRoutes } from "@/App";
 import { SERVICES } from "@/data/services";
 import { PROJECTS, publicProjects } from "@/data/projects";
 import { publishedInsights } from "@/data/insights";
-import { SITE } from "@/data/site";
+import { SITE, MARKETS_LINE } from "@/data/site";
 
-export { SERVICES, PROJECTS, publicProjects, publishedInsights, SITE };
+export { SERVICES, PROJECTS, publicProjects, publishedInsights, SITE, MARKETS_LINE };
 
 async function streamToString(stream) {
   const chunks = [];

@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { SITE, IS_PRODUCTION } from "@/data/site";
+import { SITE, IS_PRODUCTION, MARKETS } from "@/data/site";
 
 export const ORG_LD = {
   "@context": "https://schema.org",
@@ -14,7 +14,7 @@ export const ORG_LD = {
   description: SITE.description,
   identifier: { "@type": "PropertyValue", propertyID: "UEN", value: SITE.uen },
   address: { "@type": "PostalAddress", addressCountry: "SG" },
-  areaServed: "Worldwide",
+  areaServed: [...MARKETS.map((m) => (m.region ? { "@type": "Place", name: m.name } : { "@type": "Country", name: m.name, identifier: m.iso })), "Worldwide (remote)"],
   knowsLanguage: ["en"],
   location: { "@type": "Place", name: "Singapore", address: { "@type": "PostalAddress", addressCountry: "SG" } },
   contactPoint: { "@type": "ContactPoint", contactType: "sales", email: SITE.email, telephone: SITE.phoneE164, availableLanguage: ["en"] },

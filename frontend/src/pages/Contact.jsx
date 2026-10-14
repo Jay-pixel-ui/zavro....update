@@ -2,7 +2,7 @@ import Seo from "@/components/Seo";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Headline, Reveal, Eyebrow } from "@/components/motion";
 import EnquiryForm from "@/components/EnquiryForm";
-import { SITE, mailLink, waLink } from "@/data/site";
+import { SITE, mailLink, waLink, MARKETS_LINE } from "@/data/site";
 import { track } from "@/lib/analytics";
 
 const NEXT = [
@@ -44,7 +44,7 @@ export default function Contact() {
                 <p className="mt-2 text-white">{SITE.phoneDisplay}</p>
               </a>
             </div>
-            <p className="mt-6 text-sm text-z-muted">{SITE.reach}. Remote-first, across time zones. No public office address.</p>
+            <p className="mt-6 text-sm text-z-muted">{SITE.reach}. Remote-first, across time zones — {MARKETS_LINE}. No public office address.</p>
           </div>
           <Reveal className="glass-strong h-fit rounded-[24px] p-5 sm:p-9">
             <h2 className="mb-6 font-display text-xl">Project enquiry</h2>

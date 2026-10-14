@@ -119,6 +119,7 @@ const llms = [
   `> ${SITE.description} (UEN ${SITE.uen}).`,
   "",
   `Contact: ${SITE.email} · WhatsApp ${SITE.phoneDisplay}`,
+  `Markets (in priority order): ${mod.MARKETS_LINE}. Remote delivery worldwide.`,
   `Full machine-readable summary: ${SITE.url}/llms-full.txt`,
   "",
   "## Services",
@@ -141,7 +142,7 @@ const full = [
   `Updated: ${siteDate}`,
   "",
   `${SITE.description}`,
-  `Registered in Singapore, UEN ${SITE.uen}. Contact: ${SITE.email}, WhatsApp ${SITE.phoneDisplay}. ${SITE.reach}.`,
+  `Registered in Singapore, UEN ${SITE.uen}. Contact: ${SITE.email}, WhatsApp ${SITE.phoneDisplay}. ${SITE.reach}. Focus markets, in priority order: ${mod.MARKETS_LINE}.`,
   "",
   ...mod.SERVICES.flatMap((s) => [
     `## ${s.short}`,

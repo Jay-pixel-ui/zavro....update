@@ -3,7 +3,7 @@ import Seo, { ORG_LD } from "@/components/Seo";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Headline, Reveal, Eyebrow, EASE } from "@/components/motion";
 import ContactBand from "@/components/ContactBand";
-import { SITE } from "@/data/site";
+import { SITE, MARKETS_LINE } from "@/data/site";
 
 const FLOW = [["Your goals", "#FFB800"], ["Strategy", "#00E5FF"], ["Brand · Web · Marketing", "#5EA8FF"], ["Software · AI", "#B98CFF"], ["Measure", "#00E5FF"]];
 
@@ -23,7 +23,7 @@ function Flow() {
   );
 }
 
-const FACTS = [["Legal name", SITE.legalName], ["UEN", SITE.uen], ["Headquarters", "Singapore"], ["Works with", "Clients worldwide, remotely, across time zones"], ["Email", SITE.email], ["WhatsApp", SITE.phoneDisplay]];
+const FACTS = [["Legal name", SITE.legalName], ["UEN", SITE.uen], ["Headquarters", "Singapore"], ["Works with", "Clients worldwide, remotely, across time zones"], ["Focus markets", MARKETS_LINE], ["Email", SITE.email], ["WhatsApp", SITE.phoneDisplay]];
 
 export default function About() {
   return (
